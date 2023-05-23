@@ -1,2 +1,2 @@
-# aplikasi-absensi-siswa
+# aplikasi-absensi
 Absensi Siswa
