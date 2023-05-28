@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +31,3 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::resource('/user', UserController::class)->names(['index'=>'user.index']);
 
 });
-
-// Route::resource
-//        get > index
-//        post > store
-//        put > update
-//        delete > destroy
