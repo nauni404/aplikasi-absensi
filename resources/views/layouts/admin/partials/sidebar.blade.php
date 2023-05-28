@@ -1,22 +1,74 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Stisla</a>
+            <a href="dashboard">Sistem Absensi</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="dashboard">SA</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-                    <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                </ul>
+            <li class="menu-header">Admin</li>
+            {{-- Dashboard --}}
+            <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-fire"></i>
+                    <span>Dashboard</span>
+                </a>
             </li>
-            <li class="menu-header">Starter</li>
-            <li class="nav-item dropdown">
+
+            <li class="menu-header">Master Data</li>
+            {{-- User --}}
+            <li class="{{ Request::is('admin/user*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.index') }}">
+                    <i class="far fa-user"></i>
+                    <span>User</span>
+                </a>
+            </li>
+            {{-- Kelas --}}
+            <li class="">
+                <a class="nav-link" href="blank.html">
+                    <i class="fas fa-university"></i>
+                    <span>Kelas</span>
+                </a>
+            </li>
+            {{-- Guru --}}
+            <li class="">
+                <a class="nav-link" href="blank.html">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Guru</span>
+                </a>
+            </li>
+            {{-- Siswa --}}
+            <li class="">
+                <a class="nav-link" href="blank.html">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Siswa</span>
+                </a>
+            </li>
+            {{-- Absensi --}}
+            <li class="">
+                <a class="nav-link" href="blank.html">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Absensi</span>
+                </a>
+            </li>
+            {{-- Absensi 2 --}}
+            {{-- <li class="">
+                <a class="nav-link" href="blank.html">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Absensi</span>
+                </a>
+            </li> --}}
+
+            {{-- Panduan --}}
+            <li class="">
+                <a class="nav-link" href="blank.html">
+                    <i class="fas fa-rocket"></i>
+                    <span>Panduan</span>
+                </a>
+            </li>
+
+            {{-- <li class="nav-item dropdown ">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Layout</span></a>
                 <ul class="dropdown-menu">
@@ -25,8 +77,6 @@
                     <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                 </ul>
             </li>
-            <li class="active"><a class="nav-link" href="blank.html"><i class="far fa-square"></i>
-                    <span>Blank Page</span></a></li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i>
                     <span>Bootstrap</span></a>
@@ -52,8 +102,9 @@
                     <li><a class="nav-link" href="bootstrap-tooltip.html">Tooltip</a></li>
                     <li><a class="nav-link" href="bootstrap-typography.html">Typography</a></li>
                 </ul>
-            </li>
-            <li class="menu-header">Stisla</li>
+            </li> --}}
+
+            {{-- <li class="menu-header">Stisla</li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i>
                     <span>Components</span></a>
@@ -165,12 +216,6 @@
             </li>
             <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i>
                     <span>Credits</span></a></li>
-        </ul>
-
-        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                <i class="fas fa-rocket"></i> Documentation
-            </a>
-        </div>
+        </ul> --}}
     </aside>
 </div>
