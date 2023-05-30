@@ -39,8 +39,8 @@
                 </a>
             </li>
             {{-- Siswa --}}
-            <li class="">
-                <a class="nav-link" href="blank.html">
+            <li class="{{ Request::is('admin/siswa*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('siswa.index') }}">
                     <i class="fas fa-user-tie"></i>
                     <span>Siswa</span>
                 </a>

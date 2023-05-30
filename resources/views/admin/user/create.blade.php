@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'Dashboard'])
+@extends('layouts.admin.app', ['title' => 'Tambah User'])
 
 @section('content')
     <section class="section">
@@ -6,11 +6,11 @@
             <div class="section-header-back">
                 <a href="{{ route('user.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
-            <h1>Create New User</h1>
+            <h1>Tambah User</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></div>
-                <div class="breadcrumb-item">Create New User</div>
+                <div class="breadcrumb-item">Tambah User</div>
             </div>
         </div>
         <div class="section-body">
@@ -20,7 +20,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Create New User</h4>
+                                <h4>Tambah User</h4>
                             </div>
                             <div class="card-body">
                                 {{-- Username --}}
@@ -30,13 +30,13 @@
                                     <div class="col-sm-12 col-md-7">
                                         <input id="usernameInput" name="username" type="text"
                                             class="form-control @error('username') is-invalid @enderror""
-                                            value="{{ old('username') }}" required autofocus>
+                                            value="{{ old('username') }}" autofocus>
+                                        @error('username')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    @error('username')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
                                 {{-- Guru --}}
                                 <div id="guru_id" class="form-group row mb-4" hidden>
@@ -91,30 +91,36 @@
                                     <label for="password"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input id="password" type="password" name="password" class="form-control inputtags"
-                                            required>
+                                        <input id="password" type="password" name="password"
+                                            class="form-control inputtags">
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
-                                {{-- Konfirm --}}
+                                {{-- Konfirmasi Password --}}
                                 <div class="form-group row mb-4">
                                     <label for="password_confirmation"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Konfirmasi
                                         Password</label>
                                     <div class="col-sm-12 col-md-7">
                                         <input id="password_confirmation" type="password" name="password_confirmation"
-                                            class="form-control inputtags" required>
+                                            class="form-control inputtags">
+                                        @error('password_confirmation')
+                                            <div class="feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                    @error('password')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
+
                                 {{-- Daftar --}}
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                     <div class="col-sm-12 col-md-7">
-                                        <button type="submit" class="btn btn-primary">Create User</button>
+                                        <button type="submit" class="btn btn-primary">Buat User</button>
                                     </div>
                                 </div>
                             </div>
