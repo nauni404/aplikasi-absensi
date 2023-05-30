@@ -9,8 +9,9 @@
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css"
+        integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- CSS Libraries -->
 
@@ -21,7 +22,7 @@
 
 <body>
     <div id="app">
-        <div class="main-wrapper">
+        <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
             <!-- Navbar -->
             @include('layouts.admin.partials.navbar')
@@ -31,21 +32,14 @@
 
             <!-- Main Content -->
             <div class="main-content">
-                <section class="section">
-                    <div class="section-header">
-                        <h1>Blank Page</h1>
-                    </div>
-
-                    <div class="section-body">
-                        @yield('content')
-                    </div>
-                </section>
+                @yield('content')
             </div>
             @include('layouts.admin.partials.footer')
         </div>
     </div>
 
     <!-- General JS Scripts -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -61,7 +55,7 @@
     <!-- Template JS File -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
+    @yield('js')
 </body>
 
 </html>
