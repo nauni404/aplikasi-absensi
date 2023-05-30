@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.user.index', [
-            'users' => User::paginate(10)
+            'users' => User::paginate(5)
         ]);
     }
 
@@ -46,30 +46,25 @@ class UserController extends Controller
         // dd($request);
         // Validasi data yang diterima
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|min:5|unique:users|max:255',
+            'username' => 'required|string|min:5|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:Admin,Guru,Siswa',
             'guru_id' => 'required_if:role,Guru|nullable|exists:guru,id',
             'siswa_id' => 'required_if:role,Siswa|nullable|exists:siswa,id',
+        ], [
+            'username.required' => 'Username harus diisi.',
+            'username.min' => 'Username minimal terdiri dari 5 karakter.',
+            'username.unique' => 'Username sudah digunakan.',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal terdiri dari 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'role.required' => 'Role harus diisi.',
+            'role.in' => 'Role harus Admin, Guru, atau Siswa.',
+            'guru_id.required_if' => 'Guru ID harus diisi jika role adalah Guru.',
+            'guru_id.exists' => 'Guru ID tidak valid.',
+            'siswa_id.required_if' => 'Siswa ID harus diisi jika role adalah Siswa.',
+            'siswa_id.exists' => 'Siswa ID tidak valid.',
         ]);
-
-        // Jika validasi gagal, kirimkan pesan error
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => $validator->errors()->first(),
-        //     ], 400);
-        // }
-
-        // Periksa apakah nama pengguna sudah terdaftar
-        $usernameExists = User::where('username', $request->username)->exists();
-        if ($usernameExists) {
-            return back()->with([
-                'status' => 'error',
-                'message' => 'Username sudah digunakan.',
-            ]);
-
-        }
 
         // Buat pengguna baru
         $validatedData = $validator->validated();
@@ -121,27 +116,29 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $rules = [
+        $validatedData = $request->validate([
+            'username' => 'required|string|min:5|unique:users,username,' . $user->id,
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:admin,guru,siswa',
             'guru_id' => 'nullable|required_if:role,guru|exists:guru,id',
             'siswa_id' => 'nullable|required_if:role,siswa|exists:siswa,id',
-            'username' => 'required|string|min:5|unique:users|max:255',
-        ];
-
-        // Kondisi jika username diganti / tidak diganti
-        if (isset($request->username) && $request->username == $user->username) {
-            unset($rules['username']);
-        }
-
-        $validatedData = $request->validate($rules);
+        ], [
+            'username.required' => 'Username harus diisi.',
+            'username.min' => 'Username minimal 5 karakter.',
+            'username.unique' => 'Username sudah digunakan',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal harus memiliki :min karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'role.required' => 'Peran harus dipilih.',
+            'role.in' => 'Peran yang dipilih tidak valid.',
+            'guru_id.required_if' => 'ID guru harus diisi jika peran adalah "guru".',
+            'guru_id.exists' => 'ID guru yang dipilih tidak valid.',
+            'siswa_id.required_if' => 'ID siswa harus diisi jika peran adalah "siswa".',
+            'siswa_id.exists' => 'ID siswa yang dipilih tidak valid.',
+        ]);
 
         // Perbarui data pengguna yang ada
-        if (isset($validatedData['username'])) {
-            $user->username = $validatedData['username'];
-        } else {
-            $user->username = $user->username;
-        }
+        $user->username = $validatedData['username'];
         $user->password = Hash::make($validatedData['password']);
 
         // Atur peran dan ID terkait berdasarkan input pengguna
