@@ -4,77 +4,167 @@
     <section class="section">
         <div class="section-header">
             <div class="section-header-back">
-                <a href="features-posts.html" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ route('user.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
-            <h1>Create New Post</h1>
+            <h1>Create New User</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="../user">User</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></div>
                 <div class="breadcrumb-item">Create New User</div>
             </div>
         </div>
-
         <div class="section-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Write Your Post</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <input type="text" class="form-control">
-                                </div>
+            <form method="post" action="/admin/user">
+                @csrf
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Create New User</h4>
                             </div>
-                            <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <select class="form-control selectric">
-                                        <option>Admin</option>
-                                        <option>Guru</option>
-                                        <option>Siswa</option>
-                                    </select>
+                            <div class="card-body">
+                                {{-- Username --}}
+                                <div id="username" class="form-group row mb-4">
+                                    <label for="name"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input id="usernameInput" name="username" type="text"
+                                            class="form-control @error('username') is-invalid @enderror""
+                                            value="{{ old('username') }}" required autofocus>
+                                    </div>
+                                    @error('username')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                            </div>
-                            <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <input type="text" class="form-control inputtags">
+                                {{-- Guru --}}
+                                <div id="guru_id" class="form-group row mb-4" hidden>
+                                    <label for="name"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username (NIP)</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="guru_id" id="guru_id_select" class="form-control selectric">
+                                            <option value="">Pilih Guru</option>
+                                            @foreach ($guru as $gur)
+                                                @if (!$gur->hasAccount())
+                                                    <option value="{{ $gur->id }}" data-nip="{{ $gur->nip }}">
+                                                        {{ $gur->nip . ' - ' . $gur->nama }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Konfirmasi
-                                    Password</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <input type="text" class="form-control inputtags">
-                                </div>
-                            </div>
-                            {{-- Status --}}
-                            {{-- <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <select class="form-control selectric">
-                                        <option>Publish</option>
-                                        <option>Draft</option>
-                                        <option>Pending</option>
-                                    </select>
-                                </div>
-                            </div> --}}
+                                {{-- Siswa --}}
+                                <div id="siswa_id" class="form-group row mb-4" hidden>
+                                    <label for="name"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username
+                                        (NIS)</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="siswa_id" id="siswa_id_select" class="form-control selectric">
+                                            <option value="">Pilih Siswa</option>
+                                            @foreach ($siswa as $sis)
+                                                @if (!$sis->hasAccount())
+                                                    <option value="{{ $sis->id }}" data-nis="{{ $sis->nis }}">
+                                                        {{ $sis->nis . ' - ' . $sis->nama }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
 
-                            <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                                <div class="col-sm-12 col-md-7">
-                                    <button class="btn btn-primary">Create Post</button>
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- Role --}}
+                                <div class="form-group row mb-4">
+                                    <label for="name"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="role" id="role" class="form-control selectric">
+                                            <option>Admin</option>
+                                            <option>Guru</option>
+                                            <option>Siswa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                {{-- Password --}}
+                                <div class="form-group row mb-4">
+                                    <label for="password"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input id="password" type="password" name="password" class="form-control inputtags"
+                                            required>
+                                    </div>
+                                </div>
+                                {{-- Konfirm --}}
+                                <div class="form-group row mb-4">
+                                    <label for="password_confirmation"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Konfirmasi
+                                        Password</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <input id="password_confirmation" type="password" name="password_confirmation"
+                                            class="form-control inputtags" required>
+                                    </div>
+                                    @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                {{-- Daftar --}}
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <button type="submit" class="btn btn-primary">Create User</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function() {
+            $('#role').change(function() {
+                var selectedRole = $(this).val();
+                if (selectedRole === "Siswa") {
+                    $('#guru_id').attr('hidden', true);
+                    $('#siswa_id').removeAttr('hidden');
+                    $('#guru_id select').val('');
+                    $('#username').hide();
+                    var selectedOption = $('#siswa_id_select option:selected');
+                    var selectedNIS = selectedOption.data('nis');
+                    $('#usernameInput').val(selectedNIS);
+                } else if (selectedRole === "Guru") {
+                    $('#guru_id').removeAttr('hidden');
+                    $('#siswa_id').attr('hidden', true);
+                    $('#siswa_id select').val('');
+                    $('#username').hide();
+                    var selectedOption = $('#guru_id_select option:selected');
+                    var selectedNIP = selectedOption.data('nip');
+                    $('#usernameInput').val(selectedNIP);
+                } else {
+                    $('#guru_id').attr('hidden', true);
+                    $('#siswa_id').attr('hidden', true);
+                    $('#siswa_id select').val('');
+                    $('#guru_id select').val('');
+                    $('#username').show();
+                    $('#usernameInput').val('');
+                }
+            });
+            $('#siswa_id_select').change(function() {
+                var selectedOption = $(this).find('option:selected');
+                var selectedNIS = selectedOption.data('nis');
+                $('#usernameInput').val(selectedNIS);
+            });
+            $('#guru_id_select').change(function() {
+                var selectedOption = $(this).find('option:selected');
+                var selectedNIP = selectedOption.data('nip');
+                $('#usernameInput').val(selectedNIP);
+            });
+        });
+    </script>
 @endsection
