@@ -5,6 +5,16 @@
         <div class="section-header">
             <h1>User</h1>
         </div>
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
 
         <div class="row">
             <div class="col-lg-7 col-md-12 col-12 col-sm-12">
@@ -27,16 +37,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $no => $user)
+                                    @foreach ($users as $user)
                                         <tr>
-                                            <td>{{ $no + 1 }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->role }}</td>
                                             <td>
 
                                                 <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit"><i class="fas fa-pencil-alt"></i></a>
-
+                                                    title="Edit" href="/admin/user/{{ $user->id }}/edit">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
                                                 <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
                                                     data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
                                                     data-confirm-yes="deleteUser({{ $user->id }})"><i
@@ -71,26 +82,3 @@
         }
     </script>
 @endsection
-{{-- <tr>
-                                            <td>2</td>
-                                            <td>
-                                                Laravel 5 Tutorial - Installation
-                                                <div class="table-links">
-                                                    in <a href="#">Web Development</a>
-                                                    <div class="bullet"></div>
-                                                    <a href="#">View</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="font-weight-600"><img
-                                                    src="../assets/img/avatar/avatar-1.png" alt="avatar" width="30"
-                                                    class="rounded-circle mr-1"> Bagus Dwi Cahya</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr> --}}
