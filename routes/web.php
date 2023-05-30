@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -28,7 +29,7 @@ Route::controller(LoginController::class)->group(function () {
 Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
     Route::resource('/user', UserController::class)->names(['index'=>'user.index']);
-
+    Route::resource('/siswa', SiswaController::class)->names(['index'=>'siswa.index']);
 });
 
 // Route::resource

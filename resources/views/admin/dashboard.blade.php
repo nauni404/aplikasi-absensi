@@ -19,7 +19,7 @@
                             <h4>Siswa</h4>
                         </div>
                         <div class="card-body">
-                            1,201
+                            {{ $totalSiswa }}
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                             <h4>Guru</h4>
                         </div>
                         <div class="card-body">
-                            47
+                            {{ $totalGuru }}
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                             <h4>User</h4>
                         </div>
                         <div class="card-body">
-                            10
+                            {{ $totalUsers }}
                         </div>
                     </div>
                 </div>
