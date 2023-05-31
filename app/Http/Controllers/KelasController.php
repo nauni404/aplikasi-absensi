@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
-use App\Http\Requests\StoreKelasRequest;
-use App\Http\Requests\UpdateKelasRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class KelasController extends Controller
 {
@@ -13,7 +13,9 @@ class KelasController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.kelas.index', [
+            'kelas' => Kelas::paginate(10)
+        ]);
     }
 
     /**
@@ -21,15 +23,42 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.kelas.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKelasRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request);
+        // Validasi data yang diterima
+        $validator = Validator::make($request->all(), [
+            'tingkat_kelas' => 'required|in:X,XI,XII',
+            'jurusan' => 'required|in:IPA,IPS,AGAMA',
+            'nama' => 'required|string',
+            'tahun_masuk' => 'required|date_format:Y',
+            'tahun_keluar' => 'required|date_format:Y',
+        ], [
+            'tingkat_kelas.required' => 'Tingkat kelas harus diisi.',
+            'tingkat_kelas.in' => 'Tingkat kelas harus salah satu dari: X, XI, XII.',
+            'jurusan.required' => 'Jurusan harus diisi.',
+            'jurusan.in' => 'Jurusan harus salah satu dari: IPA, IPS, AGAMA.',
+            'nama.required' => 'Nama harus diisi.',
+            'nama.string' => 'Nama harus berupa teks.',
+            'tahun_masuk.required' => 'Tahun masuk harus diisi.',
+            'tahun_masuk.date_format' => 'Tahun masuk harus dalam format tahun (YYYY).',
+            'tahun_keluar.required' => 'Tahun keluar harus diisi.',
+            'tahun_keluar.date_format' => 'Tahun keluar harus dalam format tahun (YYYY).',
+        ]);
+
+        // Buat kelas baru
+        $validatedData = $validator->validated();
+        $user = new Kelas($validatedData);
+        $user->save();
+
+        // Berikan respons berhasil
+        return redirect()->route('kelas.index')->with('success', 'Kelas baru telah ditambahkan!');
     }
 
     /**
@@ -45,13 +74,16 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kelas)
     {
-        //
+        dd($kelas);
+        return view('admin.kelas.edit', [
+            'kelas' => $kelas
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKelasRequest $request, Kelas $kelas)
+    public function update(Request $request, Kelas $kelas)
     {
         //
     }
@@ -61,6 +93,9 @@ class KelasController extends Controller
      */
     public function destroy(Kelas $kelas)
     {
-        //
+        dd($kelas);
+        Kelas::destroy($kelas->id);
+
+        return redirect()->route('kelas.index')->with(['success' => 'Kelas Berhasil Dihapus!']);
     }
 }

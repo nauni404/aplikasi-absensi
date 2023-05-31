@@ -60,7 +60,7 @@ class GuruController extends Controller
             'mapel.required' => 'Mata pelajaran harus diisi.',
         ]);
 
-        // Buat pengguna baru
+        // Buat guru baru
         $validatedData = $validator->validated();
         $user = new Guru($validatedData);
         $user->save();
