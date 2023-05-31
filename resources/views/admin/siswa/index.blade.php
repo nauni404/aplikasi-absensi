@@ -29,6 +29,23 @@
                             <a href="/admin/siswa/create" class="btn btn-primary">Tambah Siswa</a>
                         </div>
                     </div>
+                    {{-- Search --}}
+                    <div class="card-header">
+                        @if (request('search'))
+                            <div class="section-header-back">
+                                <a href="{{ route('siswa.index') }}" class="btn btn-icon"><i
+                                        class="fas fa-arrow-left"></i></a>
+                            </div>
+                        @endif
+                        <form class="card-header-form" action="{{ route('siswa.index') }}">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-striped mb-0">
