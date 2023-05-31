@@ -16,8 +16,20 @@ class UserController extends Controller
      */
     public function index()
     {
+        $query = User::query();
+
+        // Jika ada pencarian NIP / Nama
+        if (request('search')) {
+            $keyword = '%' . request('search') . '%';
+            $query->where(function ($q) use ($keyword) {
+                $q->where('username', 'like', $keyword);
+            });
+        }
+
+        $user = $query->paginate(10);
+
         return view('admin.user.index', [
-            'users' => User::paginate(5)
+            'users' => $user
         ]);
     }
 
@@ -86,7 +98,7 @@ class UserController extends Controller
         }
 
         // Berikan respons berhasil
-        return redirect()->route('user.index')->with('success', 'New user has been added!');
+        return redirect()->route('user.index')->with('success', 'User baru telah ditambahkan!');
     }
 
 
