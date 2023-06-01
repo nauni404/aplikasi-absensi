@@ -26,7 +26,7 @@
             </li>
             {{-- Kelas --}}
             <li class="">
-                <a class="nav-link" href="blank.html">
+                <a class="{{ Request::is('admin/kelas*') ? 'active' : '' }}" href="{{ route('kelas.index') }}">
                     <i class="fas fa-university"></i>
                     <span>Kelas</span>
                 </a>
