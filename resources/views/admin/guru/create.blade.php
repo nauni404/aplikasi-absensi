@@ -58,7 +58,7 @@
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Kelamin</label>
                                     <div class="col-sm-12 col-md-7">
                                         <select name="jk" id="jk" class="form-control selectric">
-                                            <option value="" selected>Pilih Jenis</option>
+                                            <option selected disabled>Pilih Jenis</option>
                                             <option>L</option>
                                             <option>P</option>
                                         </select>
