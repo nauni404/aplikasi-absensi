@@ -32,8 +32,8 @@
                 </a>
             </li>
             {{-- Guru --}}
-            <li class="">
-                <a class="nav-link" href="blank.html">
+            <li class="{{ Request::is('admin/guru*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('guru.index') }}">
                     <i class="fas fa-chalkboard-teacher"></i>
                     <span>Guru</span>
                 </a>
