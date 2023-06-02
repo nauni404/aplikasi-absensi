@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -63,9 +64,11 @@ class KelasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($kelasId)
     {
-        //
+        $kelas = Kelas::firstWhere('id', $kelasId);
+
+        return view('admin.kelas.show', compact('kelas'));
     }
 
     /**
@@ -118,5 +121,33 @@ class KelasController extends Controller
         Kelas::destroy($kela->id);
 
         return redirect()->route('kelas.index')->with(['success' => 'Kelas Berhasil Dihapus!']);
+    }
+
+    public function hapusKelasId($id)
+    {
+        // Menghapus nilai kelas_id dari tabel siswa
+        Siswa::where('id', $id)->update(['kelas_id' => null]);
+
+        // Tambahkan kode lain yang ingin Anda jalankan setelah menghapus siswa
+
+        return redirect()->back()->with(['success' => 'Siswa Berhasil Dihapus Dari Kelas!']);
+    }
+
+    public function tambah($id)
+    {
+        $kelas_id = $id;
+        $siswa = Siswa::all();
+        return view('admin.kelas.tambah', [
+            'siswa' => $siswa,
+            'kelas_id' => $kelas_id
+        ]);
+    }
+
+    public function tambahSiswa($siswaId, $kelasId)
+    {
+        // Menambahkan nilai kelas_id dari tabel siswa
+        Siswa::where('id', $siswaId)->update(['kelas_id' => $kelasId]);
+        return redirect()->back()->with(['success' => 'Siswa Berhasil Ditambahkan Kedalam Kelas!']);
+
     }
 }

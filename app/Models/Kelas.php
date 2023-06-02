@@ -13,4 +13,10 @@ class Kelas extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    // Relasi ke tabel Siswa
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
 }

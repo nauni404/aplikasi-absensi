@@ -118,7 +118,6 @@ class SiswaController extends Controller
      */
     public function destroy(Siswa $siswa)
     {
-        dd($siswa);
         Siswa::destroy($siswa->id);
 
         return redirect()->route('siswa.index')->with(['success' => 'Siswa Berhasil Dihapus!']);

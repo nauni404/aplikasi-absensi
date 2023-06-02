@@ -26,4 +26,10 @@ class Siswa extends Model
     {
         return $this->user !== null;
     }
+
+    // Relasi ke tabel kelas
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
 }

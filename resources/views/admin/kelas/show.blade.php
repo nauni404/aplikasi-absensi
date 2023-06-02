@@ -1,12 +1,17 @@
-@extends('layouts.admin.app', ['title' => 'Data Siswa'])
+{{-- @dd($kelas); --}}
+@extends('layouts.admin.app', ['title' => 'Data Kelas'])
 
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Data Siswa</h1>
+            <div class="section-header-back">
+                <a href="{{ route('kelas.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+            </div>
+            <h1>Data Kelas {{ $kelas->tingkat_kelas }} {{ $kelas->jurusan }} {{ $kelas->nama }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-                <div class="breadcrumb-item">Siswa</div>
+                <div class="breadcrumb-item active"><a href="{{ route('kelas.index') }}">Kelas</a></div>
+                <div class="breadcrumb-item">{{ $kelas->tingkat_kelas }} {{ $kelas->jurusan }} {{ $kelas->nama }}</div>
             </div>
         </div>
         @if (session()->has('success'))
@@ -19,36 +24,29 @@
                 </div>
             </div>
         @endif
-
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-7 col-md-12 col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Siswa</h4>
-                        @if (count($siswa) > 0)
+                        @if (count($kelas->siswa) > 0)
                             <div class="card-header-action">
-                                <a href="/admin/siswa/create" class="btn btn-primary">Tambah Siswa</a>
+                                <a href="tambah-siswa/{{ $kelas->id }}" class="btn btn-primary">Tambah
+                                    Siswa</a>
                             </div>
                         @endif
                     </div>
-                    @if (count($siswa) > 0)
-                        {{-- Search --}}
-                        <div class="card-header">
-                            @if (request('search'))
-                                <div class="section-header-back">
-                                    <a href="{{ route('siswa.index') }}" class="btn btn-icon"><i
-                                            class="fas fa-arrow-left"></i></a>
-                                </div>
-                            @endif
-                            <form class="card-header-form" action="{{ route('siswa.index') }}">
-                                <div class="input-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    @if (count($kelas->siswa) > 0)
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
@@ -62,24 +60,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($siswa as $sis)
+                                        @foreach ($kelas->siswa as $siswa)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $sis->nis }}</td>
-                                                <td>{{ $sis->nama }}</td>
-                                                <td>{{ $sis->jk }}</td>
+                                                <td>{{ $siswa->nis }}</td>
+                                                <td>{{ $siswa->nama }}</td>
+                                                <td>{{ $siswa->jk }}</td>
                                                 <td>
-
-                                                    <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                        title="Edit" href="/admin/siswa/{{ $sis->id }}/edit">
-                                                        <i class="far fa-edit"></i>
-                                                    </a>
                                                     <a class="btn btn-danger btn-action" data-toggle="tooltip"
                                                         title="Delete"
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                        data-confirm-yes="deleteSiswa({{ $sis->id }})"><i
-                                                            class="fas fa-trash"></i> </a>
-                                                    <form id="deleteForm-{{ $sis->id }}" method="POST">
+                                                        data-confirm-yes="deleteSiswa({{ $siswa->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                    <form id="deleteForm-{{ $siswa->id }}" method="POST">
                                                         @method('delete')
                                                         @csrf
                                                     </form>
@@ -96,29 +90,29 @@
                                 <div class="empty-state-icon">
                                     <i class="fas fa-question"></i>
                                 </div>
-                                <h2>Tidak ada siswa yang terdaftar</h2>
+                                <h2>Tidak ada siswa dalam kelas ini</h2>
                                 <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
+                                    Untuk menghilangkan pesan ini, tambahkan setidaknya 1 siswa kedalam kelas.
                                 </p>
-                                <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa
+                                <a href="tambah-siswa/{{ $kelas->id }}" class="btn btn-primary mt-4">Tambah Siswa
                                 </a>
                             </div>
                         </div>
                     @endif
                 </div>
-                {{ $siswa->links() }}
             </div>
+        </div>
         </div>
     </section>
 @endsection
 @section('js')
     <script>
-        function deleteSiswa(siswaId) {
+        function deleteSiswa(kelasId) {
             // Mengambil referensi formulir dengan menggunakan ID yang unik
-            var form = document.getElementById('deleteForm-' + siswaId);
+            var form = document.getElementById('deleteForm-' + kelasId);
 
             // Mengatur atribut action pada formulir
-            form.action = "siswa/" + siswaId; // Misalkan URL delete berisi parameter siswa ID
+            form.action = "hapus-siswa/" + kelasId; // Misalkan URL delete berisi parameter kelas ID
 
             // Melakukan submit formulir
             form.submit();
