@@ -44,7 +44,7 @@
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username (NIP)</label>
                                     <div class="col-sm-12 col-md-7">
                                         <select name="guru_id" id="guru_id_select" class="form-control selectric">
-                                            <option value="">Pilih Guru</option>
+                                            <option selected disabled>Pilih Guru</option>
                                             @foreach ($guru as $gur)
                                                 @if (!$gur->hasAccount())
                                                     <option value="{{ $gur->id }}" data-nip="{{ $gur->nip }}">
@@ -62,7 +62,7 @@
                                         (NIS)</label>
                                     <div class="col-sm-12 col-md-7">
                                         <select name="siswa_id" id="siswa_id_select" class="form-control selectric">
-                                            <option value="">Pilih Siswa</option>
+                                            <option selected disabled>Pilih Siswa</option>
                                             @foreach ($siswa as $sis)
                                                 @if (!$sis->hasAccount())
                                                     <option value="{{ $sis->id }}" data-nis="{{ $sis->nis }}">
@@ -80,6 +80,7 @@
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
                                     <div class="col-sm-12 col-md-7">
                                         <select name="role" id="role" class="form-control selectric">
+                                            <option selected disabled>Pilih Role</option>
                                             <option>Admin</option>
                                             <option>Guru</option>
                                             <option>Siswa</option>

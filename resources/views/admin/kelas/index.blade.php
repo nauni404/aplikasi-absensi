@@ -34,52 +34,71 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Kelas</h4>
-                        <div class="card-header-action">
-                            <a href="/admin/kelas/create" class="btn btn-primary">Tambah Kelas</a>
-                        </div>
+                        @if (count($kelas) > 0)
+                            <div class="card-header-action">
+                                <a href="/admin/kelas/create" class="btn btn-primary">Tambah Kelas</a>
+                            </div>
+                        @endif
                     </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Kelas</th>
-                                        <th>Tahun Ajaran</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($kelas as $kel)
+                    @if (count($kelas) > 0)
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
-                                            <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
-                                            <td>
-
-                                                <a class="btn btn-info btn-action mr-1" data-toggle="tooltip" title="View"
-                                                    href="/admin/kelas/{{ $kel->id }}">
-                                                    <i class="far fa-eye"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit" href="/admin/kelas/{{ $kel->id }}/edit">
-                                                    <i class="far fa-edit"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="deleteKelas({{ $kel->id }})"><i
-                                                        class="fas fa-trash"></i> </a>
-                                                <form id="deleteForm-{{ $kel->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                </form>
-                                            </td>
+                                            <th>No</th>
+                                            <th>Kelas</th>
+                                            <th>Tahun Ajaran</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($kelas as $kel)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
+                                                <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
+                                                <td>
+
+                                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
+                                                        title="View" href="/admin/kelas/{{ $kel->id }}">
+                                                        <i class="far fa-eye"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                                        title="Edit" href="/admin/kelas/{{ $kel->id }}/edit">
+                                                        <i class="far fa-edit"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-action" data-toggle="tooltip"
+                                                        title="Delete"
+                                                        data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                                        data-confirm-yes="deleteKelas({{ $kel->id }})"><i
+                                                            class="fas fa-trash"></i> </a>
+                                                    <form id="deleteForm-{{ $kel->id }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="card-body">
+                            <div class="empty-state" data-height="400">
+                                <div class="empty-state-icon">
+                                    <i class="fas fa-question"></i>
+                                </div>
+                                <h2>Tidak ada kelas yang terdaftar</h2>
+                                <p class="lead">
+                                    Untuk menghilangkan pesan ini, buat setidaknya 1 kelas.
+                                </p>
+                                <a href="/admin/kelas/create" class="btn btn-primary mt-4">Tambah Kelas
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 {{ $kelas->links() }}
             </div>

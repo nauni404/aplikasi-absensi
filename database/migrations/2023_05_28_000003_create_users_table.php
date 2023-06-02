@@ -19,10 +19,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('siswa_id')->nullable()->constrained(
                 table: 'siswa', indexName: 'users_siswa_id'
-                )->onUpdate('cascade')->nullOnDelete();
+                )->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('guru_id')->nullable()->constrained(
                 table: 'guru', indexName: 'users_guru_id'
-                )->onUpdate('cascade')->nullOnDelete();
+                )->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

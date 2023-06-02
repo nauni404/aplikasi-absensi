@@ -25,69 +25,88 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Guru</h4>
-                        <div class="card-header-action">
-                            <a href="/admin/guru/create" class="btn btn-primary">Tambah Guru</a>
-                        </div>
-                    </div>
-                    {{-- Search --}}
-                    <div class="card-header">
-                        @if (request('search'))
-                            <div class="section-header-back">
-                                <a href="{{ route('guru.index') }}" class="btn btn-icon"><i
-                                        class="fas fa-arrow-left"></i></a>
+                        @if (count($guru) > 0)
+                            <div class="card-header-action">
+                                <a href="/admin/guru/create" class="btn btn-primary">Tambah Guru</a>
                             </div>
                         @endif
-                        <form class="card-header-form" action="{{ route('guru.index') }}">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
+                    </div>
+                    @if (count($guru) > 0)
+                        {{-- Search --}}
+                        <div class="card-header">
+                            @if (request('search'))
+                                <div class="section-header-back">
+                                    <a href="{{ route('guru.index') }}" class="btn btn-icon"><i
+                                            class="fas fa-arrow-left"></i></a>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-striped mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>NIP</th>
-                                        <th>Nama</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Mata Pelajaran</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($guru as $gur)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $gur->nip }}</td>
-                                            <td>{{ $gur->nama }}</td>
-                                            <td>{{ $gur->jk }}</td>
-                                            <td>{{ $gur->mapel }}</td>
-                                            <td>
-
-                                                <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                    title="Edit" href="/admin/guru/{{ $gur->id }}/edit">
-                                                    <i class="far fa-edit"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete"
-                                                    data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                    data-confirm-yes="deleteGuru({{ $gur->id }})"><i
-                                                        class="fas fa-trash"></i> </a>
-                                                <form id="deleteForm-{{ $gur->id }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            @endif
+                            <form class="card-header-form" action="{{ route('guru.index') }}">
+                                <div class="input-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>NIP</th>
+                                            <th>Nama</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Mata Pelajaran</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($guru as $gur)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $gur->nip }}</td>
+                                                <td>{{ $gur->nama }}</td>
+                                                <td>{{ $gur->jk }}</td>
+                                                <td>{{ $gur->mapel }}</td>
+                                                <td>
+
+                                                    <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
+                                                        title="Edit" href="/admin/guru/{{ $gur->id }}/edit">
+                                                        <i class="far fa-edit"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-action" data-toggle="tooltip"
+                                                        title="Delete"
+                                                        data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
+                                                        data-confirm-yes="deleteGuru({{ $gur->id }})"><i
+                                                            class="fas fa-trash"></i> </a>
+                                                    <form id="deleteForm-{{ $gur->id }}" method="POST">
+                                                        @method('delete')
+                                                        @csrf
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @else
+                        <div class="card-body">
+                            <div class="empty-state" data-height="400">
+                                <div class="empty-state-icon">
+                                    <i class="fas fa-question"></i>
+                                </div>
+                                <h2>Tidak ada guru yang terdaftar</h2>
+                                <p class="lead">
+                                    Untuk menghilangkan pesan ini, buat setidaknya 1 guru.
+                                </p>
+                                <a href="/admin/guru/create" class="btn btn-primary mt-4">Tambah Guru
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 {{ $guru->links() }}
             </div>
