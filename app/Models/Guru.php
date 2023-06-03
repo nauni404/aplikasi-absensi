@@ -20,7 +20,7 @@ class Guru extends Model
         return $this->hasOne(User::class);
     }
 
-    // Metode untuk memeriksa apakah siswa memiliki akun atau terdaftar
+    // Metode untuk memeriksa apakah guru memiliki akun atau terdaftar
     public function hasAccount()
     {
         return $this->user !== null;

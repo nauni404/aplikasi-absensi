@@ -1,12 +1,12 @@
-@extends('layouts.admin.app', ['title' => 'Data Siswa'])
+@extends('layouts.admin.app', ['title' => 'Data Kelas'])
 
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Data Siswa</h1>
+            <h1>Data Kelas</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-                <div class="breadcrumb-item">Siswa</div>
+                <div class="breadcrumb-item">Kelas</div>
             </div>
         </div>
         @if (session()->has('success'))
@@ -19,67 +19,61 @@
                 </div>
             </div>
         @endif
-
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-7 col-md-12 col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data Siswa</h4>
-                        @if (count($siswa) > 0)
+                        <h4>Data Kelas</h4>
+                        @if (count($kelas) > 0)
                             <div class="card-header-action">
-                                <a href="/admin/siswa/create" class="btn btn-primary">Tambah Siswa</a>
+                                <a href="/admin/kelas/create" class="btn btn-primary">Tambah Kelas</a>
                             </div>
                         @endif
                     </div>
-                    @if (count($siswa) > 0)
-                        {{-- Search --}}
-                        <div class="card-header">
-                            @if (request('search'))
-                                <div class="section-header-back">
-                                    <a href="{{ route('siswa.index') }}" class="btn btn-icon"><i
-                                            class="fas fa-arrow-left"></i></a>
-                                </div>
-                            @endif
-                            <form class="card-header-form" action="{{ route('siswa.index') }}">
-                                <div class="input-group">
-                                    <input type="text" name="search" class="form-control" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                    @if (count($kelas) > 0)
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>NIS</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
+                                            <th>Kelas</th>
+                                            <th>Tahun Ajaran</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($siswa as $sis)
+                                        @foreach ($kelas as $kel)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $sis->nis }}</td>
-                                                <td>{{ $sis->nama }}</td>
-                                                <td>{{ $sis->jk }}</td>
+                                                <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
+                                                <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
                                                 <td>
 
+                                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
+                                                        title="View" href="/admin/kelas/{{ $kel->id }}">
+                                                        <i class="far fa-eye"></i>
+                                                    </a>
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                        title="Edit" href="/admin/siswa/{{ $sis->id }}/edit">
+                                                        title="Edit" href="/admin/kelas/{{ $kel->id }}/edit">
                                                         <i class="far fa-edit"></i>
                                                     </a>
                                                     <a class="btn btn-danger btn-action" data-toggle="tooltip"
                                                         title="Delete"
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                        data-confirm-yes="deleteSiswa({{ $sis->id }})"><i
+                                                        data-confirm-yes="deleteKelas({{ $kel->id }})"><i
                                                             class="fas fa-trash"></i> </a>
-                                                    <form id="deleteForm-{{ $sis->id }}" method="POST">
+                                                    <form id="deleteForm-{{ $kel->id }}" method="POST">
                                                         @method('delete')
                                                         @csrf
                                                     </form>
@@ -96,29 +90,29 @@
                                 <div class="empty-state-icon">
                                     <i class="fas fa-question"></i>
                                 </div>
-                                <h2>Tidak ada siswa yang terdaftar</h2>
+                                <h2>Tidak ada kelas yang terdaftar</h2>
                                 <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
+                                    Untuk menghilangkan pesan ini, buat setidaknya 1 kelas.
                                 </p>
-                                <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa
+                                <a href="/admin/kelas/create" class="btn btn-primary mt-4">Tambah Kelas
                                 </a>
                             </div>
                         </div>
                     @endif
                 </div>
-                {{ $siswa->links() }}
+                {{ $kelas->links() }}
             </div>
         </div>
     </section>
 @endsection
 @section('js')
     <script>
-        function deleteSiswa(siswaId) {
+        function deleteKelas(kelasId) {
             // Mengambil referensi formulir dengan menggunakan ID yang unik
-            var form = document.getElementById('deleteForm-' + siswaId);
+            var form = document.getElementById('deleteForm-' + kelasId);
 
             // Mengatur atribut action pada formulir
-            form.action = "siswa/" + siswaId; // Misalkan URL delete berisi parameter siswa ID
+            form.action = "kelas/" + kelasId; // Misalkan URL delete berisi parameter kelas ID
 
             // Melakukan submit formulir
             form.submit();

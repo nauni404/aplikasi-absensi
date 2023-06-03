@@ -5,8 +5,10 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\KelasSiswaController;
 
 
 /*
@@ -33,4 +35,9 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::resource('/user', UserController::class)->names(['index'=>'user.index']);
     Route::resource('/siswa', SiswaController::class)->names(['index'=>'siswa.index']);
     Route::resource('/guru', GuruController::class)->names(['index'=>'guru.index']);
+    Route::resource('/kelas', KelasController::class)->names(['index'=>'kelas.index']);
+    Route::get('/kelas/tambah-siswa/{id}', [KelasController::class, 'tambah']);
+    Route::put('/kelas/tambah-siswa/siswa/{siswaId}/tambah-ke-kelas/{kelasId}', [KelasController::class, 'tambahSiswa']);
+    Route::delete('/kelas/hapus-siswa/{id}', [KelasController::class, 'hapusKelasId']);
+
 });

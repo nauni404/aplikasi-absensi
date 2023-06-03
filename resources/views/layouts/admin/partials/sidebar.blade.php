@@ -24,11 +24,11 @@
                     <span>User</span>
                 </a>
             </li>
-            {{-- Kelas --}}
-            <li class="">
-                <a class="nav-link" href="blank.html">
-                    <i class="fas fa-university"></i>
-                    <span>Kelas</span>
+            {{-- Siswa --}}
+            <li class="{{ Request::is('admin/siswa*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('siswa.index') }}">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Siswa</span>
                 </a>
             </li>
             {{-- Guru --}}
@@ -38,11 +38,11 @@
                     <span>Guru</span>
                 </a>
             </li>
-            {{-- Siswa --}}
-            <li class="{{ Request::is('admin/siswa*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('siswa.index') }}">
-                    <i class="fas fa-user-tie"></i>
-                    <span>Siswa</span>
+            {{-- Kelas --}}
+            <li class="{{ Request::is('admin/kelas*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('kelas.index') }}">
+                    <i class="fas fa-university"></i>
+                    <span>Kelas</span>
                 </a>
             </li>
             {{-- Absensi --}}
