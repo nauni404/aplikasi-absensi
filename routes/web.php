@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\KelasSiswaController;
 
@@ -38,6 +39,7 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::get('/kelas/tambah-siswa/{id}', [KelasController::class, 'tambah']);
     Route::put('/kelas/tambah-siswa/siswa/{siswaId}/tambah-ke-kelas/{kelasId}', [KelasController::class, 'tambahSiswa']);
     Route::delete('/kelas/hapus-siswa/{id}', [KelasController::class, 'hapusKelasId']);
+    Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
 
 });
 
