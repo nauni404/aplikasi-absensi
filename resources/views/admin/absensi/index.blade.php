@@ -54,9 +54,8 @@
                                                 <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
                                                 <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
                                                 <td>
-
                                                     <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                                        title="View" href="/admin/kelas/{{ $kel->id }}">
+                                                        title="View" href="/admin/absensi/{{ $kel->id }}">
                                                         <i class="far fa-eye"></i>
                                                     </a>
                                                 </td>
