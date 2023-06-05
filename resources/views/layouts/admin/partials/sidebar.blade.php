@@ -46,8 +46,8 @@
                 </a>
             </li>
             {{-- Absensi --}}
-            <li class="">
-                <a class="nav-link" href="blank.html">
+            <li class="{{ Request::is('admin/absensi*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('absensi.index') }}">
                     <i class="fas fa-calendar-day"></i>
                     <span>Absensi</span>
                 </a>

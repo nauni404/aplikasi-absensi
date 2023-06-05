@@ -40,4 +40,18 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    // Relasi One-to-One dengan model Siswa
+    // Seorang pengguna (user) terkait dengan satu entitas siswa
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class);
+    }
+
+    // Relasi One-to-One dengan model Guru
+    // Seorang pengguna (user) terkait dengan satu entitas guru
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class);
+    }
 }
