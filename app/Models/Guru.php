@@ -15,6 +15,8 @@ class Guru extends Model
 
     public $timestamps = false;
 
+    // Relasi One-to-One dengan model User
+    // Seorang guru memiliki satu entitas pengguna (user)
     public function user()
     {
         return $this->hasOne(User::class);
@@ -24,5 +26,10 @@ class Guru extends Model
     public function hasAccount()
     {
         return $this->user !== null;
+    }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class);
     }
 }
