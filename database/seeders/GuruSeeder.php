@@ -17,21 +17,18 @@ class GuruSeeder extends Seeder
             'nip' => '1800150010',
             'nama' => 'Chandra',
             'jk' => 'L',
-            'mapel' => 'Matematika'
         ]);
 
         Guru::create([
             'nip' => '1800150011',
             'nama' => 'Fairuz Nabila',
             'jk' => 'P',
-            'mapel' => 'Ekonomi'
         ]);
 
         Guru::create([
             'nip' => '1800150012',
             'nama' => 'Marsela',
             'jk' => 'P',
-            'mapel' => 'Bahasa Arab'
         ]);
     }
 }

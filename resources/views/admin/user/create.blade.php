@@ -23,6 +23,19 @@
                                 <h4>Tambah User</h4>
                             </div>
                             <div class="card-body">
+                                {{-- Role --}}
+                                <div class="form-group row mb-4">
+                                    <label for="name"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="role" id="role" class="form-control selectric">
+                                            <option selected disabled>Pilih Role</option>
+                                            <option>Admin</option>
+                                            <option>Guru</option>
+                                            <option>Siswa</option>
+                                        </select>
+                                    </div>
+                                </div>`
                                 {{-- Username --}}
                                 <div id="username" class="form-group row mb-4">
                                     <label for="name"
@@ -71,19 +84,6 @@
                                                 @endif
                                             @endforeach
 
-                                        </select>
-                                    </div>
-                                </div>
-                                {{-- Role --}}
-                                <div class="form-group row mb-4">
-                                    <label for="name"
-                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <select name="role" id="role" class="form-control selectric">
-                                            <option selected disabled>Pilih Role</option>
-                                            <option>Admin</option>
-                                            <option>Guru</option>
-                                            <option>Siswa</option>
                                         </select>
                                     </div>
                                 </div>
