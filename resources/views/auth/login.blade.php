@@ -38,7 +38,7 @@
             </form>
         </div>
     </div>
-    <div class="mt-5 text-muted text-center">
+    {{-- <div class="mt-5 text-muted text-center">
         Don't have an account? <a href="register">Create now</a>
-    </div>
+    </div> --}}
 @endsection
