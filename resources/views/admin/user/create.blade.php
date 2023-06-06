@@ -25,17 +25,27 @@
                             <div class="card-body">
                                 {{-- Role --}}
                                 <div class="form-group row mb-4">
-                                    <label for="name"
+                                    <label for="role"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="role" id="role" class="form-control selectric">
+                                        <select name="role" id="role"
+                                            class="form-control selectric @error('role') is-invalid @enderror">
                                             <option selected disabled>Pilih Role</option>
-                                            <option>Admin</option>
-                                            <option>Guru</option>
-                                            <option>Siswa</option>
+                                            <option value="Admin" @if (old('role') == 'Admin') selected @endif>Admin
+                                            </option>
+                                            <option value="Guru" @if (old('role') == 'Guru') selected @endif>Guru
+                                            </option>
+                                            <option value="Siswa" @if (old('role') == 'Siswa') selected @endif>Siswa
+                                            </option>
                                         </select>
+                                        @error('role')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                </div>`
+                                </div>
+
                                 {{-- Username --}}
                                 <div id="username" class="form-group row mb-4">
                                     <label for="name"
@@ -93,7 +103,7 @@
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
                                     <div class="col-sm-12 col-md-7">
                                         <input id="password" type="password" name="password"
-                                            class="form-control inputtags">
+                                            class="form-control inputtags @error('password') is-invalid @enderror"">
                                         @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -108,7 +118,7 @@
                                         Password</label>
                                     <div class="col-sm-12 col-md-7">
                                         <input id="password_confirmation" type="password" name="password_confirmation"
-                                            class="form-control inputtags">
+                                            class="form-control inputtags @error('password_confirmation') is-invalid @enderror"">
                                         @error('password_confirmation')
                                             <div class="feedback">
                                                 {{ $message }}

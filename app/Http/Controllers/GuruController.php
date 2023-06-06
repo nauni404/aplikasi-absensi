@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,9 +27,7 @@ class GuruController extends Controller
 
         $guru = $query->paginate(10);
 
-        return view('admin.guru.index', [
-            'guru' => $guru
-        ]);
+        return view('admin.guru.index', compact('guru'));
     }
 
     /**
@@ -36,7 +35,9 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view('admin.guru.create');
+        $mapels = Mapel::all(); // Ambil semua data mata pelajaran dari tabel mapel
+
+        return view('admin.guru.create', compact('mapels'));
     }
 
     /**
@@ -44,12 +45,11 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi data yang diterima
-        $validator = Validator::make($request->all(), [
-            'nip' => 'required|numeric|unique:guru|digits:10',
+        $validatedData = $request->validate([
+            'nip' => 'required|numeric|unique:guru,nip|digits:10',
             'nama' => 'required|string',
             'jk' => 'required|in:L,P',
-            'mapel' => 'required|string',
+            'mapel' => 'required|exists:mapel,id', // Memastikan ID mata pelajaran ada di tabel mapel
         ], [
             'nip.required' => 'NIP harus diisi.',
             'nip.numeric' => 'NIP harus berupa angka.',
@@ -58,16 +58,21 @@ class GuruController extends Controller
             'nama.required' => 'Nama harus diisi.',
             'jk.required' => 'Jenis kelamin harus diisi.',
             'mapel.required' => 'Mata pelajaran harus diisi.',
+            'mapel.exists' => 'Mata pelajaran tidak valid.', // Pesan validasi ketika ID mapel tidak ditemukan
         ]);
 
-        // Buat pengguna baru
-        $validatedData = $validator->validated();
-        $user = new Guru($validatedData);
-        $user->save();
+        // Buat guru baru
+        $guru = new Guru();
+        $guru->nip = $validatedData['nip'];
+        $guru->nama = $validatedData['nama'];
+        $guru->jk = $validatedData['jk'];
+        $guru->mapel_id = $validatedData['mapel'];
+        $guru->save();
 
         // Berikan respons berhasil
         return redirect()->route('guru.index')->with('success', 'Guru baru telah ditambahkan!');
     }
+
 
     /**
      * Display the specified resource.
@@ -82,9 +87,9 @@ class GuruController extends Controller
      */
     public function edit(Guru $guru)
     {
-        return view('admin.guru.edit', [
-            'guru' => $guru
-        ]);
+        $mapels = Mapel::all();
+
+        return view('admin.guru.edit', compact('guru', 'mapels'));
     }
 
     /**
@@ -96,7 +101,7 @@ class GuruController extends Controller
             'nip' => 'required|numeric|unique:guru,nip,' . $guru->id . '|digits:10',
             'nama' => 'required|string',
             'jk' => 'required|in:L,P',
-            'mapel' => 'required|string',
+            'mapel' => 'required|exists:mapel,id', // Memastikan ID mata pelajaran ada di tabel mapel
         ], [
             'nip.required' => 'NIP harus diisi.',
             'nip.numeric' => 'NIP harus berupa angka.',
@@ -105,14 +110,23 @@ class GuruController extends Controller
             'nama.required' => 'Nama harus diisi.',
             'jk.required' => 'Jenis kelamin harus diisi.',
             'mapel.required' => 'Mata pelajaran harus diisi.',
+            'mapel.exists' => 'Mata pelajaran tidak valid.', // Pesan validasi ketika ID mapel tidak ditemukan
         ]);
 
-        // Update guru
-        $guru->update($validatedData);
+        // Mendapatkan objek Mapel berdasarkan ID yang dipilih
+        $mapel = Mapel::findOrFail($request->mapel);
+
+        // Update atribut guru
+        $guru->nip = $validatedData['nip'];
+        $guru->nama = $validatedData['nama'];
+        $guru->jk = $validatedData['jk'];
+        $guru->mapel_id = $mapel->id;
+        $guru->save();
 
         // Berikan respons berhasil
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.

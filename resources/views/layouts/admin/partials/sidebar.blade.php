@@ -24,6 +24,13 @@
                     <span>User</span>
                 </a>
             </li>
+            {{-- Mapel --}}
+            <li class="{{ Request::is('admin/mapel*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('mapel.index') }}">
+                    <i class="fas fa-book"></i>
+                    <span>Mapel</span>
+                </a>
+            </li>
             {{-- Siswa --}}
             <li class="{{ Request::is('admin/siswa*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('siswa.index') }}">

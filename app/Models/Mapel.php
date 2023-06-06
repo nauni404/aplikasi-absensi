@@ -9,8 +9,13 @@ class Mapel extends Model
 {
     use HasFactory;
 
-    protected $table = 'kelas';
+    protected $table = 'mapel';
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public function guru()
+    {
+        return $this->hasOne(Guru::class);
+    }
 }

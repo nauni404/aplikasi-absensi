@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('jk', ['L', 'P']);
             $table->foreignId('mapel_id')->nullable()->constrained(
                 table: 'mapel', indexName: 'guru_mapel_id'
-                )->cascadeOnUpdate()->cascadeOnDelete();
+                )->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

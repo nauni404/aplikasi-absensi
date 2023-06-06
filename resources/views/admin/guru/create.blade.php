@@ -54,13 +54,16 @@
                                 </div>
                                 {{-- Jenis Kelamin --}}
                                 <div class="form-group row mb-4">
-                                    <label for="name"
+                                    <label for="jk"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Kelamin</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="jk" id="jk" class="form-control selectric">
+                                        <select name="jk" id="jk"
+                                            class="form-control selectric @error('jk') is-invalid @enderror">
                                             <option selected disabled>Pilih Jenis</option>
-                                            <option>L</option>
-                                            <option>P</option>
+                                            <option value="L" @if (old('jk') == 'L') selected @endif>L
+                                            </option>
+                                            <option value="P" @if (old('jk') == 'P') selected @endif>P
+                                            </option>
                                         </select>
                                         @error('jk')
                                             <div class="invalid-feedback">
@@ -70,12 +73,19 @@
                                     </div>
                                 </div>
                                 {{-- Mata Pelajaran --}}
-                                <div id="mapel" class="form-group row mb-4">
-                                    <label for="name" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mata
+                                <div class="form-group row mb-4">
+                                    <label for="mapel" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mata
                                         Pelajaran</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input name="mapel" class="form-control @error('mapel') is-invalid @enderror"
-                                            type="text" value="{{ old('mapel') }}">
+                                        <select name="mapel" id="mapel"
+                                            class="form-control selectric @error('mapel') is-invalid @enderror">
+                                            <option selected disabled>Pilih Mata Pelajaran</option>
+                                            @foreach ($mapels as $mapel)
+                                                <option value="{{ $mapel->id }}"
+                                                    @if (old('mapel') == $mapel->id) selected @endif>{{ $mapel->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @error('mapel')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -83,6 +93,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 {{-- Daftar --}}
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
