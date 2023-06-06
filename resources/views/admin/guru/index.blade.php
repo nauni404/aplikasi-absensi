@@ -69,7 +69,7 @@
                                                 <td>{{ $gur->nip }}</td>
                                                 <td>{{ $gur->nama }}</td>
                                                 <td>{{ $gur->jk }}</td>
-                                                <td>{{ $gur->mapel }}</td>
+                                                <td>{{ $gur->mapel ? $gur->mapel->nama : '-' }}</td>
                                                 <td>
 
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
@@ -93,19 +93,34 @@
                             </div>
                         </div>
                     @else
-                        <div class="card-body">
-                            <div class="empty-state" data-height="400">
-                                <div class="empty-state-icon">
-                                    <i class="fas fa-question"></i>
+                        @if (request('search'))
+                            <div class="card-body">
+                                <div class="empty-state" data-height="400">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                    <h2>Pencarian tidak ditemukan</h2>
+                                    <p class="lead">
+                                        Data guru dengan kata kunci "{{ request('search') }}" tidak ditemukan.
+                                    </p>
+                                    <a href="{{ route('guru.index') }}" class="btn btn-primary mt-4">Kembali</a>
                                 </div>
-                                <h2>Tidak ada guru yang terdaftar</h2>
-                                <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 guru.
-                                </p>
-                                <a href="/admin/guru/create" class="btn btn-primary mt-4">Tambah Guru
-                                </a>
                             </div>
-                        </div>
+                        @else
+                            <div class="card-body">
+                                <div class="empty-state" data-height="400">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                    <h2>Tidak ada guru yang terdaftar</h2>
+                                    <p class="lead">
+                                        Untuk menghilangkan pesan ini, buat setidaknya 1 guru.
+                                    </p>
+                                    <a href="/admin/guru/create" class="btn btn-primary mt-4">Tambah Guru
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
                     @endif
                 </div>
                 {{ $guru->links() }}

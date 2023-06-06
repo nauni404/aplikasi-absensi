@@ -44,7 +44,6 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         // Validasi data yang diterima
         $validator = Validator::make($request->all(), [
             'nis' => 'required|numeric|unique:siswa|digits:10',

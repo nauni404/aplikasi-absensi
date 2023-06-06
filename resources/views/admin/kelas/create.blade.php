@@ -25,14 +25,18 @@
                             <div class="card-body">
                                 {{-- Tingkat Kelas --}}
                                 <div class="form-group row mb-4">
-                                    <label for="name"
+                                    <label for="tingkat_kelas"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tingkat Kelas</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="tingkat_kelas" id="tingkat_kelas" class="form-control selectric">
+                                        <select name="tingkat_kelas" id="tingkat_kelas"
+                                            class="form-control selectric @error('tingkat_kelas') is-invalid @enderror">
                                             <option selected disabled>Pilih Tingkat Kelas</option>
-                                            <option>X</option>
-                                            <option>XI</option>
-                                            <option>XII</option>
+                                            <option value="X" @if (old('tingkat_kelas') == 'X') selected @endif>X
+                                            </option>
+                                            <option value="XI" @if (old('tingkat_kelas') == 'XI') selected @endif>XI
+                                            </option>
+                                            <option value="XII" @if (old('tingkat_kelas') == 'XII') selected @endif>XII
+                                            </option>
                                         </select>
                                         @error('tingkat_kelas')
                                             <div class="invalid-feedback">
@@ -43,14 +47,18 @@
                                 </div>
                                 {{-- Jurusan --}}
                                 <div class="form-group row mb-4">
-                                    <label for="name"
+                                    <label for="jurusan"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jurusan</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="jurusan" id="jurusan" class="form-control selectric">
+                                        <select name="jurusan" id="jurusan"
+                                            class="form-control selectric @error('jurusan') is-invalid @enderror">
                                             <option selected disabled>Pilih Jurusan</option>
-                                            <option>IPA</option>
-                                            <option>IPS</option>
-                                            <option>AGAMA</option>
+                                            <option value="IPA" @if (old('jurusan') == 'IPA') selected @endif>IPA
+                                            </option>
+                                            <option value="IPS" @if (old('jurusan') == 'IPS') selected @endif>IPS
+                                            </option>
+                                            <option value="AGAMA" @if (old('jurusan') == 'AGAMA') selected @endif>AGAMA
+                                            </option>
                                         </select>
                                         @error('jurusan')
                                             <div class="invalid-feedback">
@@ -59,6 +67,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 {{-- Nama --}}
                                 <div id="nama" class="form-group row mb-4">
                                     <label for="name"
