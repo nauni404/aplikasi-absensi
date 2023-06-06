@@ -26,12 +26,12 @@
                     <div
                         class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <div class="login-brand">
-                            <h1 class="text-danger">Lara<span class="text-primary">start</span></h1>
+                            <h1 class="text-danger">Sistem<span class="text-primary">Absensi SISWA</span></h1>
                         </div>
 
                         @yield('content')
                         <div class="simple-footer">
-                            Copyright &copy; Larastart {{ date('Y') }}
+                            Copyright &copy; Naufal {{ date('Y') }}
                         </div>
                     </div>
                 </div>
