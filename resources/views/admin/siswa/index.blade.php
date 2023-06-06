@@ -91,19 +91,34 @@
                             </div>
                         </div>
                     @else
-                        <div class="card-body">
-                            <div class="empty-state" data-height="400">
-                                <div class="empty-state-icon">
-                                    <i class="fas fa-question"></i>
+                        @if (request('search'))
+                            <div class="card-body">
+                                <div class="empty-state" data-height="400">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                    <h2>Pencarian tidak ditemukan</h2>
+                                    <p class="lead">
+                                        Data siswa dengan kata kunci "{{ request('search') }}" tidak ditemukan.
+                                    </p>
+                                    <a href="{{ route('siswa.index') }}" class="btn btn-primary mt-4">Kembali</a>
                                 </div>
-                                <h2>Tidak ada siswa yang terdaftar</h2>
-                                <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
-                                </p>
-                                <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa
-                                </a>
                             </div>
-                        </div>
+                        @else
+                            <div class="card-body">
+                                <div class="empty-state" data-height="400">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                    <h2>Tidak ada siswa yang terdaftar</h2>
+                                    <p class="lead">
+                                        Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
+                                    </p>
+                                    <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
                     @endif
                 </div>
                 {{ $siswa->links() }}
