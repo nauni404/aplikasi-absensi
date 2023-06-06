@@ -43,7 +43,7 @@
                                     <label for="name"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input name="nama" class="form-control @error('nis') is-invalid @enderror"
+                                        <input name="nama" class="form-control @error('nama') is-invalid @enderror"
                                             type="text" value="{{ old('nama') }}">
                                         @error('nama')
                                             <div class="invalid-feedback">
@@ -54,13 +54,16 @@
                                 </div>
                                 {{-- Jenis Kelamin --}}
                                 <div class="form-group row mb-4">
-                                    <label for="name"
+                                    <label for="jk"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Kelamin</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <select name="jk" id="jk" class="form-control selectric">
+                                        <select name="jk" id="jk"
+                                            class="form-control selectric @error('jk') is-invalid @enderror">
                                             <option selected disabled>Pilih Jenis</option>
-                                            <option>L</option>
-                                            <option>P</option>
+                                            <option value="L" @if (old('jk') == 'L') selected @endif>L
+                                            </option>
+                                            <option value="P" @if (old('jk') == 'P') selected @endif>P
+                                            </option>
                                         </select>
                                         @error('jk')
                                             <div class="invalid-feedback">

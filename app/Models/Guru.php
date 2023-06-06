@@ -28,6 +28,11 @@ class Guru extends Model
         return $this->user !== null;
     }
 
+    public function mapel()
+    {
+        return $this->belongsTo(Mapel::class);
+    }
+
     public function absensi()
     {
         return $this->hasMany(Absensi::class);

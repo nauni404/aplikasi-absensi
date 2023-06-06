@@ -1,12 +1,12 @@
-@extends('layouts.admin.app', ['title' => 'Data Siswa'])
+@extends('layouts.admin.app', ['title' => 'Data Mapel'])
 
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Data Siswa</h1>
+            <h1>Data Mapel</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-                <div class="breadcrumb-item">Siswa</div>
+                <div class="breadcrumb-item">Mapel</div>
             </div>
         </div>
         @if (session()->has('success'))
@@ -24,23 +24,23 @@
             <div class="col-lg-7 col-md-12 col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data Siswa</h4>
-                        @if (count($siswa) > 0)
+                        <h4>Data Mapel</h4>
+                        @if (count($mapels) > 0)
                             <div class="card-header-action">
-                                <a href="/admin/siswa/create" class="btn btn-primary">Tambah Siswa</a>
+                                <a href="/admin/mapel/create" class="btn btn-primary">Tambah Mapel</a>
                             </div>
                         @endif
                     </div>
-                    @if (count($siswa) > 0)
+                    @if (count($mapels) > 0)
                         {{-- Search --}}
                         <div class="card-header">
                             @if (request('search'))
                                 <div class="section-header-back">
-                                    <a href="{{ route('siswa.index') }}" class="btn btn-icon"><i
+                                    <a href="{{ route('mapel.index') }}" class="btn btn-icon"><i
                                             class="fas fa-arrow-left"></i></a>
                                 </div>
                             @endif
-                            <form class="card-header-form" action="{{ route('siswa.index') }}">
+                            <form class="card-header-form" action="{{ route('mapel.index') }}">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control" placeholder="Search">
                                     <div class="input-group-btn">
@@ -55,31 +55,27 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>NIS</th>
                                             <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($siswa as $sis)
+                                        @foreach ($mapels as $mapel)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $sis->nis }}</td>
-                                                <td>{{ $sis->nama }}</td>
-                                                <td>{{ $sis->jk }}</td>
+                                                <td>{{ $mapel->nama }}</td>
                                                 <td>
-
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                        title="Edit" href="/admin/siswa/{{ $sis->id }}/edit">
+                                                        title="Edit" href="/admin/mapel/{{ $mapel->id }}/edit">
                                                         <i class="far fa-edit"></i>
                                                     </a>
                                                     <a class="btn btn-danger btn-action" data-toggle="tooltip"
                                                         title="Delete"
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                        data-confirm-yes="deleteSiswa({{ $sis->id }})"><i
-                                                            class="fas fa-trash"></i> </a>
-                                                    <form id="deleteForm-{{ $sis->id }}" method="POST">
+                                                        data-confirm-yes="deleteMapel({{ $mapel->id }})">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                    <form id="deleteForm-{{ $mapel->id }}" method="POST">
                                                         @method('delete')
                                                         @csrf
                                                     </form>
@@ -99,9 +95,9 @@
                                     </div>
                                     <h2>Pencarian tidak ditemukan</h2>
                                     <p class="lead">
-                                        Data siswa dengan kata kunci "{{ request('search') }}" tidak ditemukan.
+                                        Data mapel dengan kata kunci "{{ request('search') }}" tidak ditemukan.
                                     </p>
-                                    <a href="{{ route('siswa.index') }}" class="btn btn-primary mt-4">Kembali</a>
+                                    <a href="{{ route('mapel.index') }}" class="btn btn-primary mt-4">Kembali</a>
                                 </div>
                             </div>
                         @else
@@ -110,30 +106,29 @@
                                     <div class="empty-state-icon">
                                         <i class="fas fa-question"></i>
                                     </div>
-                                    <h2>Tidak ada siswa yang terdaftar</h2>
+                                    <h2>Tidak ada mapel yang terdaftar</h2>
                                     <p class="lead">
-                                        Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
+                                        Untuk menghilangkan pesan ini, buat setidaknya 1 mapel.
                                     </p>
-                                    <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa
-                                    </a>
+                                    <a href="/admin/mapel/create" class="btn btn-primary mt-4">Tambah Mapel</a>
                                 </div>
                             </div>
                         @endif
                     @endif
                 </div>
-                {{ $siswa->links() }}
+                {{ $mapels->links() }}
             </div>
         </div>
     </section>
 @endsection
 @section('js')
     <script>
-        function deleteSiswa(siswaId) {
+        function deleteMapel(mapelId) {
             // Mengambil referensi formulir dengan menggunakan ID yang unik
-            var form = document.getElementById('deleteForm-' + siswaId);
+            var form = document.getElementById('deleteForm-' + mapelId);
 
             // Mengatur atribut action pada formulir
-            form.action = "siswa/" + siswaId; // Misalkan URL delete berisi parameter siswa ID
+            form.action = "mapel/" + mapelId; // Misalkan URL delete berisi parameter mapel ID
 
             // Melakukan submit formulir
             form.submit();

@@ -75,13 +75,18 @@
                                     </div>
                                 </div>
                                 {{-- Mata Pelajaran --}}
-                                <div id="mapel" class="form-group row mb-4">
+                                <div class="form-group row mb-4">
                                     <label for="name" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mata
                                         Pelajaran</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input name="mapel" type="text"
-                                            class="form-control @error('mapel') is-invalid @enderror""
-                                            value="{{ $guru->mapel }}">
+                                        <select name="mapel" id="mapel" class="form-control selectric">
+                                            @foreach ($mapels as $mapel)
+                                                <option value="{{ $mapel->id }}"
+                                                    {{ $guru->mapel_id == $mapel->id ? 'selected' : '' }}>
+                                                    {{ $mapel->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @error('mapel')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
