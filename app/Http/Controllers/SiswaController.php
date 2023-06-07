@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
@@ -113,12 +115,19 @@ class SiswaController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     *  the specified resource from storage.
      */
     public function destroy(Siswa $siswa)
     {
         Siswa::destroy($siswa->id);
 
         return redirect()->route('siswa.index')->with(['success' => 'Siswa Berhasil Dihapus!']);
+    }
+
+    public function importExcel()
+    {
+        Excel::import(new SiswaImport, request()->file('file'));
+
+        return redirect()->back()->with('success', 'Data siswa berhasil diimpor.');
     }
 }

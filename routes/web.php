@@ -36,6 +36,7 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
     Route::resource('/user', UserController::class)->names(['index'=>'user.index']);
     Route::resource('/siswa', SiswaController::class)->names(['index'=>'siswa.index']);
+    Route::post('siswa/import', [SiswaController::class, 'importExcel'])->name('siswa.import');
     Route::resource('/guru', GuruController::class)->names(['index'=>'guru.index']);
     Route::resource('/mapel', MapelController::class)->names(['index'=>'mapel.index']);
     Route::resource('/kelas', KelasController::class)->names(['index'=>'kelas.index']);
