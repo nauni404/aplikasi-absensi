@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
-use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,9 +34,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        $mapels = Mapel::all(); // Ambil semua data mata pelajaran dari tabel mapel
-
-        return view('admin.guru.create', compact('mapels'));
+        return view('admin.guru.create');
     }
 
     /**
@@ -46,19 +43,16 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nip' => 'required|numeric|unique:guru,nip|digits:10',
+            'nip' => 'required|numeric|unique:guru,nip|digits:18',
             'nama' => 'required|string',
             'jk' => 'required|in:L,P',
-            'mapel' => 'required|exists:mapel,id', // Memastikan ID mata pelajaran ada di tabel mapel
         ], [
             'nip.required' => 'NIP harus diisi.',
             'nip.numeric' => 'NIP harus berupa angka.',
             'nip.unique' => 'NIP sudah digunakan.',
-            'nip.digits' => 'NIP harus terdiri dari 10 angka.',
+            'nip.digits' => 'NIP harus terdiri dari 18 angka.',
             'nama.required' => 'Nama harus diisi.',
             'jk.required' => 'Jenis kelamin harus diisi.',
-            'mapel.required' => 'Mata pelajaran harus diisi.',
-            'mapel.exists' => 'Mata pelajaran tidak valid.', // Pesan validasi ketika ID mapel tidak ditemukan
         ]);
 
         // Buat guru baru
@@ -66,7 +60,6 @@ class GuruController extends Controller
         $guru->nip = $validatedData['nip'];
         $guru->nama = $validatedData['nama'];
         $guru->jk = $validatedData['jk'];
-        $guru->mapel_id = $validatedData['mapel'];
         $guru->save();
 
         // Berikan respons berhasil
@@ -87,9 +80,8 @@ class GuruController extends Controller
      */
     public function edit(Guru $guru)
     {
-        $mapels = Mapel::all();
 
-        return view('admin.guru.edit', compact('guru', 'mapels'));
+        return view('admin.guru.edit', compact('guru'));
     }
 
     /**
@@ -98,30 +90,20 @@ class GuruController extends Controller
     public function update(Request $request, Guru $guru)
     {
         $validatedData = $request->validate([
-            'nip' => 'required|numeric|unique:guru,nip,' . $guru->id . '|digits:10',
+            'nip' => 'required|numeric|unique:guru,nip,' . $guru->id . '|digits:18',
             'nama' => 'required|string',
             'jk' => 'required|in:L,P',
-            'mapel' => 'required|exists:mapel,id', // Memastikan ID mata pelajaran ada di tabel mapel
         ], [
             'nip.required' => 'NIP harus diisi.',
             'nip.numeric' => 'NIP harus berupa angka.',
             'nip.unique' => 'NIP sudah digunakan.',
-            'nip.digits' => 'NIP harus terdiri dari 10 angka.',
+            'nip.digits' => 'NIP harus terdiri dari 18 angka.',
             'nama.required' => 'Nama harus diisi.',
             'jk.required' => 'Jenis kelamin harus diisi.',
-            'mapel.required' => 'Mata pelajaran harus diisi.',
-            'mapel.exists' => 'Mata pelajaran tidak valid.', // Pesan validasi ketika ID mapel tidak ditemukan
         ]);
 
-        // Mendapatkan objek Mapel berdasarkan ID yang dipilih
-        $mapel = Mapel::findOrFail($request->mapel);
-
-        // Update atribut guru
-        $guru->nip = $validatedData['nip'];
-        $guru->nama = $validatedData['nama'];
-        $guru->jk = $validatedData['jk'];
-        $guru->mapel_id = $mapel->id;
-        $guru->save();
+        // Perbarui guru dengan data yang valid
+        $guru->update($validatedData);
 
         // Berikan respons berhasil
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');

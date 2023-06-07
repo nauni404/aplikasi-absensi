@@ -52,6 +52,13 @@
                     <span>Kelas</span>
                 </a>
             </li>
+            {{-- Jadwal --}}
+            <li class="{{ Request::is('admin/jadwal*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('jadwal.index') }}">
+                    <i class="fas fa-clock"></i>
+                    <span>Jadwal</span>
+                </a>
+            </li>
             {{-- Absensi --}}
             <li class="{{ Request::is('admin/absensi*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('absensi.index') }}">

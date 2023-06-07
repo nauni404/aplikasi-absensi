@@ -72,28 +72,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- Mata Pelajaran --}}
-                                <div class="form-group row mb-4">
-                                    <label for="mapel" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mata
-                                        Pelajaran</label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <select name="mapel" id="mapel"
-                                            class="form-control selectric @error('mapel') is-invalid @enderror">
-                                            <option selected disabled>Pilih Mata Pelajaran</option>
-                                            @foreach ($mapels as $mapel)
-                                                <option value="{{ $mapel->id }}"
-                                                    @if (old('mapel') == $mapel->id) selected @endif>{{ $mapel->nama }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('mapel')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
                                 {{-- Daftar --}}
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>

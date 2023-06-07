@@ -44,7 +44,7 @@
                                             <th>No</th>
                                             <th>Kelas</th>
                                             <th>Tahun Ajaran</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -63,7 +63,7 @@
                                             <th>NIS</th>
                                             <th>Nama</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

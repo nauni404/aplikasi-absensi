@@ -1,12 +1,12 @@
-@extends('layouts.admin.app', ['title' => 'Data Kelas'])
+@extends('layouts.admin.app', ['title' => 'Data Jadwal'])
 
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Data Kelas</h1>
+            <h1>Data Jadwal</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-                <div class="breadcrumb-item">Kelas</div>
+                <div class="breadcrumb-item">Jadwal</div>
             </div>
         </div>
         @if (session()->has('success'))
@@ -33,47 +33,50 @@
             <div class="col-lg-7 col-md-12 col-12 col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Data Kelas</h4>
-                        @if (count($kelas) > 0)
+                        <h4>Data Jadwal</h4>
+                        @if (count($jadwals) > 0)
                             <div class="card-header-action">
-                                <a href="/admin/kelas/create" class="btn btn-primary">Tambah Kelas</a>
+                                <a href="/admin/jadwal/create" class="btn btn-primary">Tambah Jadwal</a>
                             </div>
                         @endif
                     </div>
-                    @if (count($kelas) > 0)
+                    @if (count($jadwals) > 0)
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Guru</th>
+                                            <th>Mata Pelajaran</th>
                                             <th>Kelas</th>
-                                            <th>Tahun Ajaran</th>
+                                            <th>Hari</th>
+                                            <th>Jam</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($kelas as $kel)
+                                        @foreach ($jadwals as $jadwal)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
-                                                <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
+                                                <td>{{ $jadwal->guru->nama }}</td>
+                                                <td>{{ $jadwal->mapel->nama }}</td>
                                                 <td>
-
-                                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                                        title="View" href="/admin/kelas/{{ $kel->id }}">
-                                                        <i class="far fa-eye"></i>
-                                                    </a>
+                                                    {{ $jadwal->kelas->tingkat_kelas . ' ' . $jadwal->kelas->jurusan . ' ' . $jadwal->kelas->nama }}
+                                                </td>
+                                                <td>{{ $jadwal->hari }}</td>
+                                                <td>{{ $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai }}</td>
+                                                <td>
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
-                                                        title="Edit" href="/admin/kelas/{{ $kel->id }}/edit">
+                                                        title="Edit" href="/admin/jadwal/{{ $jadwal->id }}/edit">
                                                         <i class="far fa-edit"></i>
                                                     </a>
                                                     <a class="btn btn-danger btn-action" data-toggle="tooltip"
                                                         title="Delete"
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                        data-confirm-yes="deleteKelas({{ $kel->id }})"><i
+                                                        data-confirm-yes="deleteJadwal({{ $jadwal->id }})"><i
                                                             class="fas fa-trash"></i> </a>
-                                                    <form id="deleteForm-{{ $kel->id }}" method="POST">
+                                                    <form id="deleteForm-{{ $jadwal->id }}" method="POST">
                                                         @method('delete')
                                                         @csrf
                                                     </form>
@@ -90,29 +93,29 @@
                                 <div class="empty-state-icon">
                                     <i class="fas fa-question"></i>
                                 </div>
-                                <h2>Tidak ada kelas yang terdaftar</h2>
+                                <h2>Tidak ada jadwal yang terdaftar</h2>
                                 <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 kelas.
+                                    Untuk menghilangkan pesan ini, buat setidaknya 1 jadwal.
                                 </p>
-                                <a href="/admin/kelas/create" class="btn btn-primary mt-4">Tambah Kelas
+                                <a href="/admin/jadwal/create" class="btn btn-primary mt-4">Tambah Jadwal
                                 </a>
                             </div>
                         </div>
                     @endif
                 </div>
-                {{ $kelas->links() }}
+                {{-- {{ $jadwals->links() }} --}}
             </div>
         </div>
     </section>
 @endsection
 @section('js')
     <script>
-        function deleteKelas(kelasId) {
+        function deleteJadwal(jadwalId) {
             // Mengambil referensi formulir dengan menggunakan ID yang unik
-            var form = document.getElementById('deleteForm-' + kelasId);
+            var form = document.getElementById('deleteForm-' + jadwalId);
 
             // Mengatur atribut action pada formulir
-            form.action = "kelas/" + kelasId; // Misalkan URL delete berisi parameter kelas ID
+            form.action = "jadwal/" + jadwalId; // Misalkan URL delete berisi parameter jadwal ID
 
             // Melakukan submit formulir
             form.submit();
