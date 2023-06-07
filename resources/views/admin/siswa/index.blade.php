@@ -30,14 +30,19 @@
                                 <a href="/admin/siswa/create" class="btn btn-primary">Tambah Siswa</a>
                             </div>
                         @endif
+                        <div class="card-header-action">
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                data-target="#importModal">Import Siswa</button>
+                        </div>
                     </div>
                     @if (count($siswa) > 0)
                         {{-- Search --}}
                         <div class="card-header">
                             @if (request('search'))
                                 <div class="section-header-back">
-                                    <a href="{{ route('siswa.index') }}" class="btn btn-icon"><i
-                                            class="fas fa-arrow-left"></i></a>
+                                    <a href="{{ route('siswa.index') }}" class="btn btn-icon">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </a>
                                 </div>
                             @endif
                             <form class="card-header-form" action="{{ route('siswa.index') }}">
@@ -125,6 +130,43 @@
             </div>
         </div>
     </section>
+    {{-- Modal --}}
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('siswa.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="importModalLabel">Import Siswa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">File</label>
+                            <input type="file" name="file" id="file" required>
+                        </div>
+                        <p><code>*Catatan</code>
+                            <br><code>*</code> Header tidak perlu diubah
+                            <br><code>*</code> Pastikan data tidak kosong
+                        </p>
+                        <div class="form-group">
+                            <label>Download Template</label>
+                            <a href="{{ asset('excel/template_siswa.xlsx') }}" download>Excel
+                                <i class="fas fa-file-excel"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
     <script>
