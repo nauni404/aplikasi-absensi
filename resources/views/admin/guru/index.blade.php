@@ -58,8 +58,7 @@
                                             <th>NIP</th>
                                             <th>Nama</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Mata Pelajaran</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -69,7 +68,6 @@
                                                 <td>{{ $gur->nip }}</td>
                                                 <td>{{ $gur->nama }}</td>
                                                 <td>{{ $gur->jk }}</td>
-                                                <td>{{ $gur->mapel ? $gur->mapel->nama : '-' }}</td>
                                                 <td>
 
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"

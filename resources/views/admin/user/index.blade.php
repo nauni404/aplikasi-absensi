@@ -54,7 +54,7 @@
                                         <th>No</th>
                                         <th>Username</th>
                                         <th>Role</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
