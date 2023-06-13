@@ -51,11 +51,11 @@
                                     <table class="table table-striped mb-0">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>NIS</th>
-                                                <th>Nama</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Aksi</th>
+                                                <th class="text-center">No</th>
+                                                <th class="text-center">NIS</th>
+                                                <th class="text-center">Nama</th>
+                                                <th class="text-center">Jenis Kelamin</th>
+                                                <th class="text-center">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

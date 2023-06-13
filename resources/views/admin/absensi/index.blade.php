@@ -41,10 +41,10 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kelas</th>
-                                            <th>Tahun Ajaran</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Tahun Ajaran</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
