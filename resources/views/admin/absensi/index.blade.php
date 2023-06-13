@@ -50,10 +50,12 @@
                                     <tbody>
                                         @foreach ($kelas as $kel)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
-                                                <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $kel->tingkat_kelas }} {{ $kel->jurusan }}
+                                                    {{ $kel->nama }}</td>
+                                                <td class="text-center">{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}
+                                                </td>
+                                                <td class="text-center">
                                                     <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
                                                         title="View" href="/admin/absensi/{{ $kel->id }}">
                                                         <i class="far fa-eye"></i>

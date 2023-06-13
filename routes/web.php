@@ -10,6 +10,7 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -52,6 +53,15 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
 
 });
 
+Route::prefix('guru')->middleware('auth', 'guru')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'guru']);
+
+    Route::controller(AbsensiController::class)->group(function () {
+        Route::get('/absensi', 'indexGuru')->name('guru.absensi.index');
+        Route::get('/absensi/{kelas}', 'showAbsen');
+        Route::post('/absensi', 'storeAbsen');
+    });
+});
 // Route::resource
 //        get > index
 //        post > store

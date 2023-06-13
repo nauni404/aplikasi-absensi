@@ -62,9 +62,9 @@
                                     <tbody>
                                         @foreach ($mapels as $mapel)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $mapel->nama }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $mapel->nama }}</td>
+                                                <td class="text-center">
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                         title="Edit" href="/admin/mapel/{{ $mapel->id }}/edit">
                                                         <i class="far fa-edit"></i>

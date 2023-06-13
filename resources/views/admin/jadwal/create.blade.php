@@ -32,7 +32,10 @@
                                             class="form-control selectric @error('guru_id') is-invalid @enderror">
                                             <option selected disabled>Pilih Guru</option>
                                             @foreach ($gurus as $guru)
-                                                <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
+                                                <option value="{{ $guru->id }}"
+                                                    {{ old('guru_id') == $guru->id ? 'selected' : '' }}>
+                                                    {{ $guru->nama }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('guru_id')
@@ -51,8 +54,12 @@
                                             class="form-control selectric @error('mapel_id') is-invalid @enderror">
                                             <option selected disabled>Pilih Mapel</option>
                                             @foreach ($mapels as $mapel)
-                                                <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
+                                                <option value="{{ $mapel->id }}"
+                                                    {{ old('mapel_id') == $mapel->id ? 'selected' : '' }}>
+                                                    {{ $mapel->nama }}
+                                                </option>
                                             @endforeach
+
                                         </select>
                                         @error('mapel_id')
                                             <div class="invalid-feedback">
@@ -69,9 +76,10 @@
                                         <select name="kelas_id" id="kelas_id"
                                             class="form-control selectric @error('kelas_id') is-invalid @enderror">
                                             <option selected disabled>Pilih Kelas</option>
-                                            @foreach ($kelas as $kelas)
-                                                <option value="{{ $kelas->id }}">
-                                                    {{ $kelas->tingkat_kelas . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}
+                                            @foreach ($kelas as $k)
+                                                <option value="{{ $k->id }}"
+                                                    {{ old('kelas_id') == $k->id ? 'selected' : '' }}>
+                                                    {{ $k->tingkat_kelas . ' ' . $k->jurusan . ' ' . $k->nama }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -83,12 +91,32 @@
                                     </div>
                                 </div>
                                 {{-- Hari --}}
-                                <div id="hari" class="form-group row mb-4">
+                                <div class="form-group row mb-4">
                                     <label for="hari"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hari</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input name="hari" class="form-control @error('hari') is-invalid @enderror"
-                                            type="text" value="{{ old('hari') }}">
+                                        <select name="hari" id="hari"
+                                            class="form-control selectric @error('hari') is-invalid @enderror">
+                                            <option selected disabled>Pilih Hari</option>
+                                            <option value="Senin" @if (old('hari') == 'Senin') selected @endif>
+                                                Senin
+                                            </option>
+                                            <option value="Selasa" @if (old('hari') == 'Selasa') selected @endif>
+                                                Selasa
+                                            </option>
+                                            <option value="Rabu" @if (old('hari') == 'Rabu') selected @endif>
+                                                Rabu
+                                            </option>
+                                            <option value="Kamis" @if (old('hari') == 'Kamis') selected @endif>
+                                                Kamis
+                                            </option>
+                                            <option value="Jumat" @if (old('hari') == 'Jumat') selected @endif>
+                                                Jumat
+                                            </option>
+                                            <option value="Sabtu" @if (old('hari') == 'Sabtu') selected @endif>
+                                                Sabtu
+                                            </option>
+                                        </select>
                                         @error('hari')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
