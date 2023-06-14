@@ -52,21 +52,21 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>NIS</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">NIS</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Jenis Kelamin</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($kelas->siswa as $siswa)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $siswa->nis }}</td>
-                                                <td>{{ $siswa->nama }}</td>
-                                                <td>{{ $siswa->jk }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $siswa->nis }}</td>
+                                                <td class="text-center">{{ $siswa->nama }}</td>
+                                                <td class="text-center">{{ $siswa->jk }}</td>
+                                                <td class="text-center">
                                                     <a class="btn btn-danger btn-action" data-toggle="tooltip"
                                                         title="Delete"
                                                         data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"

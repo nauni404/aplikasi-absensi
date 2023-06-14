@@ -46,19 +46,21 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kelas</th>
-                                            <th>Tahun Ajaran</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Tahun Ajaran</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($kelas as $kel)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $kel->tingkat_kelas }} {{ $kel->jurusan }} {{ $kel->nama }}</td>
-                                                <td>{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $kel->tingkat_kelas }} {{ $kel->jurusan }}
+                                                    {{ $kel->nama }}</td>
+                                                <td class="text-center">{{ $kel->tahun_masuk }}/{{ $kel->tahun_keluar }}
+                                                </td>
+                                                <td class="text-center">
 
                                                     <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
                                                         title="View" href="/admin/kelas/{{ $kel->id }}">

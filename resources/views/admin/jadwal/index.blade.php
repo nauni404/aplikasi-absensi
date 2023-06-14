@@ -46,27 +46,28 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Guru</th>
-                                            <th>Mata Pelajaran</th>
-                                            <th>Kelas</th>
-                                            <th>Hari</th>
-                                            <th>Jam</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Guru</th>
+                                            <th class="text-center">Mata Pelajaran</th>
+                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Hari</th>
+                                            <th class="text-center">Jam</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($jadwals as $jadwal)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $jadwal->guru->nama }}</td>
-                                                <td>{{ $jadwal->mapel->nama }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $jadwal->guru->nama }}</td>
+                                                <td class="text-center">{{ $jadwal->mapel->nama }}</td>
+                                                <td class="text-center">
                                                     {{ $jadwal->kelas->tingkat_kelas . ' ' . $jadwal->kelas->jurusan . ' ' . $jadwal->kelas->nama }}
                                                 </td>
-                                                <td>{{ $jadwal->hari }}</td>
-                                                <td>{{ $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $jadwal->hari }}</td>
+                                                <td class="text-center">
+                                                    {{ $jadwal->jam_mulai . ' - ' . $jadwal->jam_selesai }}</td>
+                                                <td class="text-center">
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                         title="Edit" href="/admin/jadwal/{{ $jadwal->id }}/edit">
                                                         <i class="far fa-edit"></i>

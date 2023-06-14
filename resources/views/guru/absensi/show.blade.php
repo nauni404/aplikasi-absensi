@@ -1,5 +1,5 @@
 {{-- @dd($count); --}}
-@extends('layouts.admin.app', ['title' => 'Data Kelas'])
+@extends('layouts.guru.app', ['title' => 'Data Kelas'])
 
 @section('content')
     <section class="section">
@@ -8,11 +8,11 @@
                 <a href="{{ route('absensi.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
             <h1>Absensi Kelas
-                {{ $kelas->tingkat_kelas . ' ' . $kelas->jurusan . ' ' . $kelas->nama . ' (' . Carbon\Carbon::now('Asia/Jakarta')->format('d F Y') . ')' }}
+                {{ $kelas->tingkat_kelas .' ' .$kelas->jurusan .' ' .$kelas->nama .' (' .Carbon\Carbon::now('Asia/Jakarta')->locale('id')->isoFormat('D MMMM Y') .')' }}
             </h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="{{ route('absensi.index') }}">Absensi</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('guru.absensi.index') }}">Absensi</a></div>
                 <div class="breadcrumb-item">{{ $kelas->tingkat_kelas }} {{ $kelas->jurusan }} {{ $kelas->nama }}</div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                         <h4>Data Siswa</h4>
                     </div>
                     @if (count($kelas->siswa) > 0)
-                        <form action="/admin/absensi" method="post">
+                        <form action="/guru/absensi" method="post">
                             @csrf
                             <input type="hidden" name="kelas" value="{{ $kelas->id }}">
                             <div class="card-body p-0">
@@ -113,11 +113,9 @@
                                 </div>
                                 <h2>Tidak ada siswa dalam kelas ini</h2>
                                 <p class="lead">
-                                    Untuk menghilangkan pesan ini, tambahkan setidaknya 1 siswa kedalam kelas.
+                                    Untuk menghilangkan pesan ini, silahkan hubungi Admin untuk menambahkan siswa kedalam
+                                    kelas ini.
                                 </p>
-                                <a href="../kelas/tambah-siswa/{{ $kelas->id }}" class="btn btn-primary mt-4">Tambah
-                                    Siswa
-                                </a>
                             </div>
                         </div>
                     @endif

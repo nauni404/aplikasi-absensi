@@ -54,21 +54,21 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Aksi</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">NIP</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Jenis Kelamin</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($guru as $gur)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $gur->nip }}</td>
-                                                <td>{{ $gur->nama }}</td>
-                                                <td>{{ $gur->jk }}</td>
-                                                <td>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $gur->nip }}</td>
+                                                <td class="text-center">{{ $gur->nama }}</td>
+                                                <td class="text-center">{{ $gur->jk }}</td>
+                                                <td class="text-center">
 
                                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                         title="Edit" href="/admin/guru/{{ $gur->id }}/edit">
