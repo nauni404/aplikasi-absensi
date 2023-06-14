@@ -51,22 +51,22 @@
                                 <table class="table table-striped mb-0">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>NIS</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Action</th>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">NIS</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Jenis Kelamin</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($siswa as $sis)
                                             @if (!$sis->kelas_id)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $sis->nis }}</td>
-                                                    <td>{{ $sis->nama }}</td>
-                                                    <td>{{ $sis->jk }}</td>
-                                                    <td>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td class="text-center">{{ $sis->nis }}</td>
+                                                    <td class="text-center">{{ $sis->nama }}</td>
+                                                    <td class="text-center">{{ $sis->jk }}</td>
+                                                    <td class="text-center">
                                                         <a class="btn btn-primary btn-action" data-toggle="tooltip"
                                                             title="Tambah"
                                                             data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"

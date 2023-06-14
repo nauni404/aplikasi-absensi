@@ -51,19 +51,19 @@
                             <table class="table table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Username</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Username</th>
+                                        <th class="text-center">Role</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->role }}</td>
-                                            <td>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">{{ $user->username }}</td>
+                                            <td class="text-center">{{ $user->role }}</td>
+                                            <td class="text-center">
                                                 <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip"
                                                     title="Edit" href="/admin/user/{{ $user->id }}/edit">
                                                     <i class="far fa-edit"></i>

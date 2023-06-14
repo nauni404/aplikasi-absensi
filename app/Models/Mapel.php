@@ -14,8 +14,8 @@ class Mapel extends Model
 
     public $timestamps = false;
 
-    public function guru()
+    public function jadwal()
     {
-        return $this->hasOne(Guru::class);
+        return $this->hasMany(Jadwal::class);
     }
 }

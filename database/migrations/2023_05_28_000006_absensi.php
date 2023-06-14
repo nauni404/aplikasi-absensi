@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreignId('kelas_id')->constrained(
                 table: 'kelas', indexName: 'absensi_kelas_id'
                 )->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('jadwal_id')->constrained(
+                table: 'jadwal', indexName: 'absensi_jadwal_id'
+                )->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('tanggal');
             $table->enum('status', ['A', 'S', 'I', 'H']);
         });

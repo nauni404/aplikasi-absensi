@@ -8,9 +8,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\KelasSiswaController;
 
 
 /*
@@ -36,12 +37,15 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']);
     Route::resource('/user', UserController::class)->names(['index'=>'user.index']);
     Route::resource('/siswa', SiswaController::class)->names(['index'=>'siswa.index']);
+        Route::post('siswa/import', [SiswaController::class, 'importExcel'])->name('siswa.import');
     Route::resource('/guru', GuruController::class)->names(['index'=>'guru.index']);
     Route::resource('/mapel', MapelController::class)->names(['index'=>'mapel.index']);
     Route::resource('/kelas', KelasController::class)->names(['index'=>'kelas.index']);
-    Route::get('/kelas/tambah-siswa/{id}', [KelasController::class, 'tambah'])->name('kelas.tambah-siswa');
-    Route::put('/kelas/tambah-siswa/siswa/{siswaId}/tambah-ke-kelas/{kelasId}', [KelasController::class, 'tambahSiswa']);
-    Route::delete('/kelas/hapus-siswa/{id}', [KelasController::class, 'hapusKelasId']);
+        Route::get('/kelas/tambah-siswa/{id}', [KelasController::class, 'tambah'])->name('kelas.tambah-siswa');
+        Route::put('/kelas/tambah-siswa/siswa/{siswaId}/tambah-ke-kelas/{kelasId}', [KelasController::class, 'tambahSiswa']);
+        Route::delete('/kelas/hapus-siswa/{id}', [KelasController::class, 'hapusKelasId']);
+    Route::resource('/jadwal', JadwalController::class)->names(['index'=>'jadwal.index']);
+
     Route::controller(AbsensiController::class)->group(function () {
         Route::get('/absensi', 'index')->name('absensi.index');
         Route::get('/absensi/{id}', 'show');
@@ -49,3 +53,18 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     });
 
 });
+
+Route::prefix('guru')->middleware('auth', 'guru')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'guru']);
+
+    Route::controller(AbsensiController::class)->group(function () {
+        Route::get('/absensi', 'indexGuru')->name('guru.absensi.index');
+        Route::get('/absensi/{kelas}', 'showAbsen');
+        Route::post('/absensi', 'storeAbsen');
+    });
+});
+// Route::resource
+//        get > index
+//        post > store
+//        put > update
+//        delete > destroy
