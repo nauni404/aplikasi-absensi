@@ -1,4 +1,3 @@
-{{-- @dd($jadwalSiswa); --}}
 @extends('layouts.siswa.app', ['title' => 'Dashboard'])
 
 @section('content')
