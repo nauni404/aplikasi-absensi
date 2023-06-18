@@ -10,7 +10,7 @@
             </div>
         </div>
         @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-success alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -21,7 +21,7 @@
         @endif
 
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Mapel</h4>
