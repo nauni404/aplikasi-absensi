@@ -10,7 +10,7 @@
             </div>
         </div>
         @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-success alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -21,7 +21,7 @@
         @endif
 
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Siswa</h4>
@@ -30,7 +30,7 @@
                                 <a href="/admin/siswa/create" class="btn btn-primary">Tambah Siswa</a>
                             </div>
                         @endif
-                        <div class="card-header-action">
+                        <div class="card-header-action mx-3">
                             <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#importModal">Import Siswa</button>
                         </div>
