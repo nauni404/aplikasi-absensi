@@ -33,14 +33,26 @@ class RekapController extends Controller
         // Filter berdasarkan rekapitulasi yang dipilih
         if ($rekap == 'hari') {
             // Rekap hari ini
+            $startDate = now()->format('Y-m-d');
+            $endDate = now()->format('Y-m-d');
             $absensi = $absensi->where('tanggal', now()->format('Y-m-d'));
         } elseif ($rekap == 'minggu') {
             // Rekap minggu ini (7 hari terakhir)
+            $startDate = now()->startOfWeek()->format('Y-m-d');
+            $endDate = now()->endOfWeek()->format('Y-m-d');
             $absensi = $absensi->whereBetween('tanggal', [now()->startOfWeek(), now()->endOfWeek()]);
         } elseif ($rekap == 'bulan') {
             // Rekap bulan ini
+            $startDate = now()->startOfMonth()->format('Y-m-d');
+            $endDate = now()->endOfMonth()->format('Y-m-d');
             $absensi = $absensi->whereYear('tanggal', now()->year)
                 ->whereMonth('tanggal', now()->month);
+        } elseif ($rekap == 'custom') {
+            // Rekap rentang tanggal yang disesuaikan
+            $startDate = $request->start_date;
+            $endDate = $request->end_date;
+
+            $absensi = $absensi->whereBetween('tanggal', [$startDate, $endDate]);
         }
 
         $absensi = $absensi->get();
@@ -52,15 +64,33 @@ class RekapController extends Controller
         $fileName = 'Rekap_Absensi_' . $kelas->nama . '_' . $rekapType . '_' . date('YmdHis');
 
         // Generate URL untuk mengunduh rekap dalam format PDF
-        $pdfUrl = route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $request->kelas_id, 'jadwal_id' => $request->jadwal_id, 'format' => 'pdf']);
+        $pdfUrl = route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $request->kelas_id, 'jadwal_id' => $request->jadwal_id, 'start_date' => $startDate, 'end_date' => $endDate, 'format' => 'pdf']);
 
         // Generate URL untuk mengunduh rekap dalam format Excel
-        $excelUrl = route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $request->kelas_id, 'jadwal_id' => $request->jadwal_id, 'format' => 'excel']);
+        $excelUrl = route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $request->kelas_id, 'jadwal_id' => $request->jadwal_id, 'start_date' => $startDate, 'end_date' => $endDate, 'format' => 'excel']);
 
-        return view('admin.rekap.view', compact('kelas', 'rekap', 'absensi', 'pdfUrl', 'excelUrl', 'fileName'));
+        // Tambahkan pengecekan dan penugasan variabel $start_date dan $end_date
+        if ($rekap == 'custom') {
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+        } elseif ($rekap == 'hari') {
+            // Atur nilai $start_date dan $end_date berdasarkan rekap 'hari'
+            $start_date = now()->format('Y-m-d');
+            $end_date = now()->format('Y-m-d');
+        } elseif ($rekap == 'minggu') {
+            // Atur nilai $start_date dan $end_date berdasarkan rekap 'minggu'
+            $start_date = now()->startOfWeek()->format('Y-m-d');
+            $end_date = now()->endOfWeek()->format('Y-m-d');
+        } elseif ($rekap == 'bulan') {
+            // Atur nilai $start_date dan $end_date berdasarkan rekap 'bulan'
+            $start_date = now()->startOfMonth()->format('Y-m-d');
+            $end_date = now()->endOfMonth()->format('Y-m-d');
+        }
+
+        return view('admin.rekap.view', compact('kelas', 'rekap', 'absensi', 'pdfUrl', 'excelUrl', 'fileName', 'start_date', 'end_date'));
     }
 
-    public function download($rekap, $kelas_id, $jadwal_id, $format)
+    public function download($rekap, $kelas_id, $jadwal_id, $start_date, $end_date, $format)
     {
         $kelas = Kelas::findOrFail($kelas_id);
 
@@ -75,18 +105,20 @@ class RekapController extends Controller
         } elseif ($rekap == 'bulan') {
             $absensi = $absensi->whereYear('tanggal', now()->year)
                 ->whereMonth('tanggal', now()->month);
+        } elseif ($rekap == 'custom') {
+            // Rekap rentang tanggal yang disesuaikan
+            $absensi = $absensi->whereBetween('tanggal', [$start_date, $end_date]);
         }
 
         $absensi = $absensi->get();
 
         // Generate nama file
-        $fileName = 'Rekap_Absensi_' . $kelas->nama . '_' . ucfirst($rekap) . '_' . date('YmdHis');
-
+        $fileName = 'Rekap_Absensi_' . $kelas->tingkat_kelas . '_' . $kelas->jurusan . '_' . $kelas->nama . '_' . date('d-m-Y');
         if ($format == 'pdf') {
             // Menggunakan library DomPDF untuk menghasilkan file PDF
 
             // Render view rekapitulasi absensi ke dalam HTML
-            $view = view('admin.rekap.pdf', compact('kelas', 'rekap', 'absensi'))->render();
+            $view = view('admin.rekap.pdf', compact('kelas', 'rekap', 'absensi', 'start_date', 'end_date'))->render();
 
             // Membuat PDF dengan menggunakan DomPDF
             $pdf = PDF::loadHTML($view);
@@ -94,8 +126,10 @@ class RekapController extends Controller
             // Mengunduh file PDF
             return $pdf->download($fileName . '.pdf');
 
+// V.1
         } elseif ($format == 'excel') {
-            // Mendefinisikan data yang akan ditampilkan dalam file Excel
+            $guru = count($absensi) > 0 ? $absensi[0]->jadwal->guru : null;
+            $mapel = count($absensi) > 0 ? $absensi[0]->jadwal->mapel : null;
             $data = [];
             $siswaData = [];
             $no = 1;
@@ -133,9 +167,13 @@ class RekapController extends Controller
             }
 
             // Generate the Excel file
-            return Excel::download(new RekapAbsensiExport($data), 'absensi.xlsx');
+            return Excel::download(
+                new RekapAbsensiExport($data, $kelas, $guru, $mapel, $absensi, $rekap, $start_date, $end_date),
+                $fileName . '.xlsx'
+            );
         }
     }
+
 
     public function indexGuru()
     {
