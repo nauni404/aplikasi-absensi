@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'Dashboard'])
+@extends('layouts.siswa.app', ['title' => 'Dashboard'])
 
 @section('content')
     <section class="section">
@@ -24,7 +24,7 @@
                     <div class="card">
                         <div class="card-header">{{ __('Change Username') }}</div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('change-username-admin') }}">
+                            <form method="POST" action="{{ route('change-username-siswa') }}">
                                 @csrf
 
                                 <div class="form-group row">
@@ -75,7 +75,7 @@
                         <div class="card-header">{{ __('Change Password') }}</div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('change-password-admin') }}">
+                            <form method="POST" action="{{ route('change-password-siswa') }}">
                                 @csrf
 
                                 <div class="form-group row">

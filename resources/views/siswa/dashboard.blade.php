@@ -56,7 +56,7 @@
                                 <div class="empty-state-icon">
                                     <i class="fas fa-question"></i>
                                 </div>
-                                <h2>Tidak ada jadwal mengajar hari ini</h2>
+                                <h2>Tidak ada jadwal belajar hari ini</h2>
                             </div>
                         </div>
                     @endif
@@ -66,7 +66,7 @@
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Semua Jadwal Mengajar</h4>
+                        <h4>Semua Jadwal Belajar</h4>
                     </div>
                     @if (count($jadwalSiswa) > 0)
                         <div class="card-body p-0">
