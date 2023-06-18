@@ -64,7 +64,14 @@
                                         <option value="hari">Per Hari</option>
                                         <option value="minggu">Per Minggu</option>
                                         <option value="bulan">Per Bulan</option>
+                                        <option value="custom">Custom Tanggal</option>
                                     </select>
+                                </div>
+                                <div class="form-group" id="custom-date">
+                                    <label for="start_date">Tanggal Awal:</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control">
+                                    <label for="end_date">Tanggal Akhir:</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Tampilkan Rekapitulasi</button>
                             </div>
@@ -77,10 +84,8 @@
                                 </div>
                                 <h2>Tidak ada kelas yang terdaftar</h2>
                                 <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 kelas.
+                                    Untuk menghilangkan pesan ini, beritahu admin untuk buat setidaknya 1 kelas.
                                 </p>
-                                <a href="/guru/kelas/create" class="btn btn-primary mt-4">Tambah Kelas
-                                </a>
                             </div>
                         </div>
                     @endif
@@ -100,6 +105,22 @@
             if (kelasId == "-- Pilih Kelas --" || jadwalId == "-- Pilih Jadwal --" || rekap == "-- Pilih Waktu Rekap --") {
                 alert("Mohon lengkapi semua opsi yang tersedia.");
                 return false;
+            }
+
+            if (rekap == "custom") {
+                var startDate = document.getElementById("start_date").value;
+                var endDate = document.getElementById("end_date").value;
+
+                if (startDate == "" || endDate == "") {
+                    alert("Mohon pilih tanggal awal dan tanggal akhir.");
+                    return false;
+                }
+
+                // Validasi apakah tanggal awal lebih kecil atau sama dengan tanggal akhir
+                if (startDate > endDate) {
+                    alert("Tanggal awal harus sebelum tanggal akhir.");
+                    return false;
+                }
             }
         }
 
@@ -123,5 +144,18 @@
                 }
             }
         }
+
+        // Pada awalnya sembunyikan div custom-date
+        document.getElementById("custom-date").style.display = "none";
+
+        // Tambahkan event listener untuk menampilkan/menyembunyikan div custom-date
+        document.getElementById("rekap").addEventListener("change", function() {
+            var rekapValue = this.value;
+            if (rekapValue === "custom" || rekapValue === "-- Pilih Waktu Rekap --") {
+                document.getElementById("custom-date").style.display = "block";
+            } else {
+                document.getElementById("custom-date").style.display = "none";
+            }
+        });
     </script>
 @endsection
