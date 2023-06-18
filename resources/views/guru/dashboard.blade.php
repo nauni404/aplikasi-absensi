@@ -154,7 +154,6 @@
                         </div>
                     @endif
                 </div>
-                {{-- {{ $jadwals->links() }} --}}
             </div>
         </div>
     </section>

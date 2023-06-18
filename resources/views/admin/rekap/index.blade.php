@@ -10,7 +10,7 @@
             </div>
         </div>
         @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-success alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -20,7 +20,7 @@
             </div>
         @endif
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-danger alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -31,7 +31,7 @@
         @endif
 
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Pilih Rekap</h4>
@@ -40,51 +40,78 @@
                         <form action="rekap/view" method="GET" onsubmit="return validateForm()">
                             <div class="card-body">
                                 {{-- Kelas --}}
-                                <div class="form-group">
-                                    <label for="kelas_id">Pilih Kelas:</label>
-                                    <select name="kelas_id" id="kelas_id" class="form-control required"
-                                        onChange="resetJadwalOptions()">
-                                        <option selected disabled>-- Pilih Kelas --</option>
-                                        @foreach ($kelas as $kelasItem)
-                                            <option value="{{ $kelasItem->id }}">
-                                                {{ $kelasItem->tingkat_kelas . ' ' . $kelasItem->jurusan . ' ' . $kelasItem->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group row mb-4">
+                                    <label for="kelas_id"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih Kelas:</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="kelas_id" id="kelas_id" class="form-control required"
+                                            onChange="resetJadwalOptions()">
+                                            <option selected disabled>-- Pilih Kelas --</option>
+                                            @foreach ($kelas as $kelasItem)
+                                                <option value="{{ $kelasItem->id }}">
+                                                    {{ $kelasItem->tingkat_kelas . ' ' . $kelasItem->jurusan . ' ' . $kelasItem->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 {{-- Jadwal --}}
-                                <div class="form-group">
-                                    <label for="jadwal_id">Pilih Jadwal:</label>
-                                    <select name="jadwal_id" id="jadwal_id" class="form-control" required>
-                                        <option selected disabled>-- Pilih Jadwal --</option>
-                                        @foreach ($jadwal as $jadwalItem)
-                                            <option value="{{ $jadwalItem->id }}" data-kelas="{{ $jadwalItem->kelas_id }}"
-                                                style="display: none;">
-                                                {{ $jadwalItem->guru->nama . ' - ' . $jadwalItem->mapel->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group row mb-4">
+                                    <label for="jadwal_id"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih Jadwal:</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="jadwal_id" id="jadwal_id" class="form-control" required>
+                                            <option selected disabled>-- Pilih Jadwal --</option>
+                                            @foreach ($jadwal as $jadwalItem)
+                                                <option value="{{ $jadwalItem->id }}"
+                                                    data-kelas="{{ $jadwalItem->kelas_id }}" style="display: none;">
+                                                    {{ $jadwalItem->guru->nama . ' - ' . $jadwalItem->mapel->nama }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 {{-- Rekap --}}
-                                <div class="form-group">
-                                    <label for="rekap">Pilih Rekapitulasi:</label>
-                                    <select name="rekap" id="rekap" class="form-control" required>
-                                        <option selected disabled>-- Pilih Waktu Rekap --</option>
-                                        <option value="hari">Hari ini</option>
-                                        <option value="minggu">Minggu ini</option>
-                                        <option value="bulan">Bulan ini</option>
-                                        <option value="custom">Custom Tanggal</option>
-                                    </select>
+                                <div class="form-group row mb-4">
+                                    <label for="rekap"
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pilih
+                                        Rekapitulasi:</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="rekap" id="rekap" class="form-control" required>
+                                            <option selected disabled>-- Pilih Waktu Rekap --</option>
+                                            <option value="hari">Hari ini</option>
+                                            <option value="minggu">Minggu ini</option>
+                                            <option value="bulan">Bulan ini</option>
+                                            <option value="custom">Custom Tanggal</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="form-group" id="custom-date">
-                                    <label for="start_date">Tanggal Awal:</label>
-                                    <input type="date" name="start_date" id="start_date" class="form-control">
-                                    <label for="end_date">Tanggal Akhir:</label>
-                                    <input type="date" name="end_date" id="end_date" class="form-control">
+                                <div id="custom-date">
+                                    <div class="form-group row mb-4">
+                                        <label for="start_date"
+                                            class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal
+                                            Awal:</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <input type="date" name="start_date" id="start_date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-4">
+                                        <label for="end_date"
+                                            class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal
+                                            Akhir:</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <input type="date" name="end_date" id="end_date" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                    Tampilkan Rekapitulasi
-                                </button>
+                                <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <button type="submit" class="btn btn-primary">
+                                            Tampilkan Rekapitulasi
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     @else

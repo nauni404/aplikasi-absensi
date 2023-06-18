@@ -36,7 +36,6 @@ class DashboardController extends Controller
                 ELSE 8
             END")
             ->orderBy('jam_mulai')
-            ->where('hari', '>=', $hariIni)
             ->get();
 
         $totalKelas = $jadwalGuru->groupBy('kelas_id')->count();
