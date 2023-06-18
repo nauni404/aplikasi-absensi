@@ -12,13 +12,12 @@ class HomeController extends Controller
         if (Auth::check()) {
             if (Auth::user()->role=='admin') {
                 return redirect('admin/dashboard');
-            } elseif (Auth::user()->role=='guru') {
+            } elseif (Auth::user()->role === 'guru') {
                 return redirect('guru/dashboard');
-            } else {
-                return view('user/dashboard');
+            } elseif (Auth::user()->role === 'siswa') {
+                return redirect('siswa/dashboard');
             }
-        } else {
-            return view('auth.login');
         }
+        return view('auth.login');
     }
 }

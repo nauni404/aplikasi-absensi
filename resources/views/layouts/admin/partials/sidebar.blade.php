@@ -73,7 +73,13 @@
                     <span>Absensi</span>
                 </a>
             </li> --}}
-
+            {{-- Rekap --}}
+            <li class="{{ Request::is('admin/rekap*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('rekap.index') }}">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Rekap</span>
+                </a>
+            </li>
             {{-- Panduan --}}
             <li class="">
                 <a class="nav-link" href="blank.html">
