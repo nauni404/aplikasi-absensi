@@ -17,11 +17,11 @@
                 <h4>Rekap Absensi Siswa</h4>
                 @if (count($absensi) > 0)
                     <div class="card-header-action">
-                        <a href="{{ route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $kelas->id, 'jadwal_id' => $absensi[0]->jadwal->id, 'format' => 'pdf']) }}"
+                        <a href="{{ route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $kelas->id, 'jadwal_id' => $absensi[0]->jadwal->id, 'start_date' => $start_date, 'end_date' => $end_date, 'format' => 'pdf']) }}"
                             class="btn btn-primary">Download PDF</a>
                     </div>
                     <div class="card-header-action">
-                        <a href="{{ route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $kelas->id, 'jadwal_id' => $absensi[0]->jadwal->id, 'format' => 'excel']) }}"
+                        <a href="{{ route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $kelas->id, 'jadwal_id' => $absensi[0]->jadwal->id, 'start_date' => $start_date, 'end_date' => $end_date, 'format' => 'excel']) }}"
                             class="btn btn-success">Download Excel</a>
                     </div>
                 @endif
@@ -140,6 +140,70 @@
                             @elseif ($rekap == 'bulan')
                                 <h6>Periode: {{ now('Asia/Jakarta')->startOfMonth()->format('d-m-Y') }} -
                                     {{ now('Asia/Jakarta')->endOfMonth()->format('d-m-Y') }}</h6>
+                                @if (count($absensi) > 0)
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">No.</th>
+                                                <th rowspan="2">NIS</th>
+                                                <th rowspan="2">Siswa</th>
+                                                <th colspan="4" class="text-center">Jumlah</th>
+                                            </tr>
+                                            <tr>
+                                                <th>A</th>
+                                                <th>S</th>
+                                                <th>I</th>
+                                                <th>H</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $siswaData = [];
+                                            @endphp
+                                            @foreach ($absensi as $index => $data)
+                                                @php
+                                                    $siswaId = $data->siswa->id;
+                                                    if (!isset($siswaData[$siswaId])) {
+                                                        $siswaData[$siswaId] = [
+                                                            'A' => 0,
+                                                            'S' => 0,
+                                                            'I' => 0,
+                                                            'H' => 0,
+                                                        ];
+                                                    }
+                                                    $siswaData[$siswaId][$data->status]++;
+                                                @endphp
+                                            @endforeach
+                                            @foreach ($siswaData as $siswaId => $statuses)
+                                                @php
+                                                    $siswa = $absensi->first(function ($item) use ($siswaId) {
+                                                        return $item->siswa->id == $siswaId;
+                                                    });
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $siswa->siswa->nis }}</td>
+                                                    <td>{{ $siswa->siswa->nama }}</td>
+                                                    <td>{{ $statuses['A'] }}</td>
+                                                    <td>{{ $statuses['S'] }}</td>
+                                                    <td>{{ $statuses['I'] }}</td>
+                                                    <td>{{ $statuses['H'] }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <div class="empty-state" data-height="400">
+                                        <div class="empty-state-icon">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                        </div>
+                                        <h2>Tidak ada data absensi yang ditemukan</h2>
+                                        <p class="lead">Tidak ada data absensi yang sesuai dengan kriteria yang dipilih.
+                                        </p>
+                                    </div>
+                                @endif
+                            @elseif ($rekap == 'custom')
+                                <h6>Periode: {{ $start_date }} - {{ $end_date }}</h6>
                                 @if (count($absensi) > 0)
                                     <table class="table table-striped">
                                         <thead>

@@ -70,13 +70,21 @@
                                     <label for="rekap">Pilih Rekapitulasi:</label>
                                     <select name="rekap" id="rekap" class="form-control" required>
                                         <option selected disabled>-- Pilih Waktu Rekap --</option>
-                                        <option value="hari">Per Hari</option>
-                                        <option value="minggu">Per Minggu</option>
-                                        <option value="bulan">Per Bulan</option>
+                                        <option value="hari">Hari ini</option>
+                                        <option value="minggu">Minggu ini</option>
+                                        <option value="bulan">Bulan ini</option>
+                                        <option value="custom">Custom Tanggal</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Tampilkan
-                                    Rekapitulasi</button>
+                                <div class="form-group" id="custom-date">
+                                    <label for="start_date">Tanggal Awal:</label>
+                                    <input type="date" name="start_date" id="start_date" class="form-control">
+                                    <label for="end_date">Tanggal Akhir:</label>
+                                    <input type="date" name="end_date" id="end_date" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Tampilkan Rekapitulasi
+                                </button>
                             </div>
                         </form>
                     @else
@@ -111,6 +119,22 @@
                 alert("Mohon lengkapi semua opsi yang tersedia.");
                 return false;
             }
+
+            if (rekap == "custom") {
+                var startDate = document.getElementById("start_date").value;
+                var endDate = document.getElementById("end_date").value;
+
+                if (startDate == "" || endDate == "") {
+                    alert("Mohon pilih tanggal awal dan tanggal akhir.");
+                    return false;
+                }
+
+                // Validasi apakah tanggal awal lebih kecil atau sama dengan tanggal akhir
+                if (startDate > endDate) {
+                    alert("Tanggal awal harus sebelum tanggal akhir.");
+                    return false;
+                }
+            }
         }
 
         function resetJadwalOptions() {
@@ -132,5 +156,18 @@
                 }
             }
         }
+
+        // Pada awalnya sembunyikan div custom-date
+        document.getElementById("custom-date").style.display = "none";
+
+        // Tambahkan event listener untuk menampilkan/menyembunyikan div custom-date
+        document.getElementById("rekap").addEventListener("change", function() {
+            var rekapValue = this.value;
+            if (rekapValue === "custom" || rekapValue === "-- Pilih Waktu Rekap --") {
+                document.getElementById("custom-date").style.display = "block";
+            } else {
+                document.getElementById("custom-date").style.display = "none";
+            }
+        });
     </script>
 @endsection
