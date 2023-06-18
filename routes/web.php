@@ -79,7 +79,7 @@ Route::prefix('guru')->middleware('auth', 'guru')->group(function () {
     Route::controller(RekapController::class)->group(function () {
         Route::get('/rekap', 'indexGuru')->name('guru.rekap.index');
         Route::get('/rekap/view', 'viewRekapGuru');
-        Route::get('/rekap/download/{rekap}/{kelas_id}/{jadwal_id}/{format}', 'download')->name('guru.rekap.download');
+        Route::get('/rekap/download/{rekap}/{kelas_id}/{jadwal_id}/{start_date}/{end_date}/{format}', 'download')->name('guru.rekap.download');
     });
 
 });
