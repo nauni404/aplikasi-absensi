@@ -89,7 +89,6 @@ class AbsensiController extends Controller
                 ELSE 8
             END")
             ->orderBy('jam_mulai')
-            ->where('hari', '>=', $hariIni)
             ->get();
 
         return view('guru.absensi.index', compact('jadwalHariIni', 'jadwalGuru'));

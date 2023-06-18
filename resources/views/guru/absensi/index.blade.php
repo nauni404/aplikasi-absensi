@@ -107,7 +107,6 @@
                                             <th class="text-center">Kelas</th>
                                             <th class="text-center">Mata Pelajaran</th>
                                             <th class="text-center">Jumlah Siswa</th>
-                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,12 +122,6 @@
                                                 <td class="text-center">{{ $jadwal->mapel->nama }}</td>
                                                 <td class="text-center">
                                                     {{ $jadwal->kelas->siswa->count() }}
-                                                </td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                                        title="View" href="/guru/absensi/{{ $jadwal->kelas->id }}">
-                                                        <i class="far fa-eye"></i>
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

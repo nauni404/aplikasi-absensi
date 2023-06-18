@@ -29,7 +29,7 @@
             @if (count($absensi) > 0)
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-12">
                             <h6>Kelas: {{ $kelas->tingkat_kelas . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}</h6>
                             <h6>Guru: {{ $absensi[0]->jadwal->guru->nama }}</h6>
                             <h6>Mata Pelajaran: {{ $absensi[0]->jadwal->mapel->nama }}</h6>
