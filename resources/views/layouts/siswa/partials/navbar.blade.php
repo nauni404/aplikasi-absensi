@@ -9,12 +9,13 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->guru->nama }}</div>
+                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->siswa->nama }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="{{ route('pengaturan-guru') }}" class="dropdown-item has-icon">
+                <a href="{{ route('pengaturan-siswa') }}" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Pengaturan
                 </a>
+                <div class="dropdown-divider"></div>
                 <form action="/logout" method="post">
                     @csrf
                     <button type="submit"

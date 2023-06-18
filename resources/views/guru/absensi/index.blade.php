@@ -29,8 +29,10 @@
                 </div>
             </div>
         @endif
+        {{-- Jadwal --}}
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+            {{-- Jadwal Hari ini --}}
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Jadwal Absensi Hari Ini</h4>
@@ -78,7 +80,7 @@
                         </div>
                     @else
                         <div class="card-body">
-                            <div class="empty-state" data-height="400">
+                            <div class="empty-state" data-height="">
                                 <div class="empty-state-icon">
                                     <i class="fas fa-question"></i>
                                 </div>
@@ -87,43 +89,40 @@
                         </div>
                     @endif
                 </div>
-                {{-- {{ $jadwals->links() }} --}}
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+            {{-- Semua Jadwal --}}
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Jadwal Absensi Hari Ini</h4>
+                        <h4>Semua Jadwal Mengajar</h4>
                     </div>
-                    @if (count($jadwalHariIni) > 0)
+                    @if (count($jadwalGuru) > 0)
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-striped mb-0">
+                                <table class="table table-striped mb-0" style="padding: 0 0px;">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Guru</th>
-                                            <th class="text-center">Mata Pelajaran</th>
+                                            <th class="text-center">Jadwal</th>
                                             <th class="text-center">Kelas</th>
-                                            <th class="text-center">Hari</th>
-                                            <th class="text-center">Jam</th>
+                                            <th class="text-center">Mata Pelajaran</th>
+                                            <th class="text-center">Jumlah Siswa</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($jadwalHariIni as $jadwal)
+                                        @foreach ($jadwalGuru as $jadwal)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{ $jadwal->guru->nama }}</td>
-                                                <td class="text-center">{{ $jadwal->mapel->nama }}</td>
+                                                <td class="text-center">
+                                                    {{ $jadwal->hari . ' | ' . substr($jadwal->jam_mulai, 0, 5) . ' - ' . substr($jadwal->jam_selesai, 0, 5) }}
+                                                </td>
                                                 <td class="text-center">
                                                     {{ $jadwal->kelas->tingkat_kelas . ' ' . $jadwal->kelas->jurusan . ' ' . $jadwal->kelas->nama }}
                                                 </td>
-                                                <td class="text-center">{{ $jadwal->hari }}</td>
+                                                <td class="text-center">{{ $jadwal->mapel->nama }}</td>
                                                 <td class="text-center">
-                                                    {{ substr($jadwal->jam_mulai, 0, 5) . ' - ' . substr($jadwal->jam_selesai, 0, 5) }}
+                                                    {{ $jadwal->kelas->siswa->count() }}
                                                 </td>
                                                 <td class="text-center">
                                                     <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"

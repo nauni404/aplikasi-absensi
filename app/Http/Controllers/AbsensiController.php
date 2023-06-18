@@ -30,10 +30,8 @@ class AbsensiController extends Controller
 
     public function store(Request $request)
     {
-        // dd(auth()->user()->guru->id);
         $absensiData = $request->input('siswa');
         $tanggal = now('Asia/Jakarta')->format('Y-m-d');
-        // $guruId = auth()->user()->guru->id;
         $guruId = auth()->user()->id;
         $kelasId = $request->kelas;
 
@@ -70,13 +68,31 @@ class AbsensiController extends Controller
         $guruId = auth()->user()->guru->id;
         $hariIni = Carbon::now('Asia/Jakarta')->locale('id')->isoFormat('dddd');
 
+        // Mendapatkan jadwal guru hari ini
         $jadwalHariIni = Jadwal::where('guru_id', $guruId)
             ->where('hari', $hariIni)
-            ->with('kelas', 'kelas.siswa') // Menambahkan eager loading untuk siswa
+            ->with('kelas')
             ->orderBy('jam_mulai', 'asc') // Mengurutkan jadwal berdasarkan jam_mulai terkecil
             ->get();
 
-        return view('guru.absensi.index', compact('jadwalHariIni'));
+        // Mendapatkan semua jadwal guru yang sedang login
+        $jadwalGuru = Jadwal::where('guru_id', $guruId)
+            ->with(['guru', 'mapel', 'kelas'])
+            ->orderByRaw("CASE
+                WHEN hari = 'Senin' THEN 1
+                WHEN hari = 'Selasa' THEN 2
+                WHEN hari = 'Rabu' THEN 3
+                WHEN hari = 'Kamis' THEN 4
+                WHEN hari = 'Jumat' THEN 5
+                WHEN hari = 'Sabtu' THEN 6
+                WHEN hari = 'Minggu' THEN 7
+                ELSE 8
+            END")
+            ->orderBy('jam_mulai')
+            ->where('hari', '>=', $hariIni)
+            ->get();
+
+        return view('guru.absensi.index', compact('jadwalHariIni', 'jadwalGuru'));
     }
 
     public function showAbsen($kelasId)
