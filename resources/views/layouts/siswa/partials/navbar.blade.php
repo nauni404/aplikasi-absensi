@@ -9,7 +9,7 @@
     <ul class="navbar-nav navbar-right">
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->guru->nama }}</div>
+                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->siswa->nama }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="features-profile.html" class="dropdown-item has-icon">

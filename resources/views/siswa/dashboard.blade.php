@@ -1,5 +1,5 @@
-{{-- @dd($jadwalGuru); --}}
-@extends('layouts.guru.app', ['title' => 'Dashboard'])
+{{-- @dd($jadwalSiswa); --}}
+@extends('layouts.siswa.app', ['title' => 'Dashboard'])
 
 @section('content')
     <section class="section">
@@ -7,48 +7,13 @@
             <h1>Dashboard</h1>
         </div>
 
-        {{-- Total Akun --}}
-        <div class="row">
-            {{-- Siswa --}}
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Mengajar</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $totalSiswa }} siswa
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Kelas --}}
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Mengajar</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $totalKelas }} kelas
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         {{-- Jadwal --}}
         <div class="row">
             {{-- Jadwal Hari ini --}}
             <div class="col-lg-6 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Jadwal Mengajar Hari Ini</h4>
+                        <h4>Jadwal Hari Ini</h4>
                     </div>
                     @if (count($jadwalHariIni) > 0)
                         <div class="card-body p-0">
@@ -57,34 +22,28 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Jadwal</th>
-                                            <th class="text-center">Kelas</th>
+                                            <th class="text-center">Hari</th>
+                                            <th class="text-center">Guru</th>
                                             <th class="text-center">Mata Pelajaran</th>
-                                            <th class="text-center">Absen</th>
-                                            <th class="text-center">Aksi</th>
+                                            <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($jadwalHariIni as $jadwal)
+                                            @php
+                                                $absensi = $absensi->firstWhere('jadwal_id', $jadwal->id);
+                                            @endphp
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">
-                                                    {{ $jadwal->hari . ' | ' . substr($jadwal->jam_mulai, 0, 5) . ' - ' . substr($jadwal->jam_selesai, 0, 5) }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ $jadwal->kelas->tingkat_kelas . ' ' . $jadwal->kelas->jurusan . ' ' . $jadwal->kelas->nama }}
-                                                </td>
+                                                <td class="text-center">{{ $jadwal->hari }}</td>
+                                                <td class="text-center">{{ $jadwal->guru->nama }}</td>
                                                 <td class="text-center">{{ $jadwal->mapel->nama }}</td>
                                                 <td class="text-center">
-                                                    {{ $jadwal->absensi->where('status')->where('tanggal', \Carbon\Carbon::now('Asia/Jakarta')->toDateString())->count() }}
-                                                    /
-                                                    {{ $jadwal->kelas->siswa->count() }}
-                                                </td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
-                                                        title="View" href="/guru/absensi/{{ $jadwal->kelas->id }}">
-                                                        <i class="far fa-eye"></i>
-                                                    </a>
+                                                    @if ($absensi)
+                                                        {{ $absensi->status }}
+                                                    @else
+                                                        -
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -110,7 +69,7 @@
                     <div class="card-header">
                         <h4>Semua Jadwal Mengajar</h4>
                     </div>
-                    @if (count($jadwalGuru) > 0)
+                    @if (count($jadwalSiswa) > 0)
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0" style="padding: 0 0px;">
@@ -120,11 +79,11 @@
                                             <th class="text-center">Jadwal</th>
                                             <th class="text-center">Kelas</th>
                                             <th class="text-center">Mata Pelajaran</th>
-                                            <th class="text-center">Jumlah Siswa</th>
+                                            <th class="text-center">Guru</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($jadwalGuru as $jadwal)
+                                        @foreach ($jadwalSiswa as $jadwal)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-center">
@@ -134,9 +93,7 @@
                                                     {{ $jadwal->kelas->tingkat_kelas . ' ' . $jadwal->kelas->jurusan . ' ' . $jadwal->kelas->nama }}
                                                 </td>
                                                 <td class="text-center">{{ $jadwal->mapel->nama }}</td>
-                                                <td class="text-center">
-                                                    {{ $jadwal->kelas->siswa->count() }}
-                                                </td>
+                                                <td class="text-center">{{ $jadwal->guru->nama }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -156,6 +113,8 @@
                 </div>
                 {{-- {{ $jadwals->links() }} --}}
             </div>
+
+
         </div>
     </section>
 @endsection

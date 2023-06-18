@@ -18,24 +18,31 @@
 
             <li class="menu-header">Master Data</li>
             {{-- Kelas --}}
-            <li class="{{ Request::is('guru/kelas*') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('guru/kelas*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('kelas.index') }}">
                     <i class="fas fa-university"></i>
                     <span>Kelas</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- Jadwal --}}
-            <li class="{{ Request::is('guru/jadwal*') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('guru/jadwal*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('jadwal.index') }}">
                     <i class="fas fa-clock"></i>
                     <span>Jadwal</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- Absensi --}}
             <li class="{{ Request::is('guru/absensi*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('guru.absensi.index') }}">
                     <i class="fas fa-calendar-day"></i>
                     <span>Absensi</span>
+                </a>
+            </li>
+            {{-- Rekap --}}
+            <li class="">
+                <a class="nav-link" href="{{ route('guru.rekap.index') }}">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Rekap</span>
                 </a>
             </li>
             {{-- Panduan --}}

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\RekapController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AbsensiController;
@@ -51,6 +52,12 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
         Route::post('/absensi', 'store');
     });
 
+    Route::controller(RekapController::class)->group(function () {
+        Route::get('/rekap', 'index')->name('rekap.index');
+        Route::get('/rekap/view', 'viewRekap');
+        Route::get('/rekap/download/{rekap}/{kelas_id}/{jadwal_id}/{format}', 'download')->name('rekap.download');
+    });
+
 });
 
 Route::prefix('guru')->middleware('auth', 'guru')->group(function () {
@@ -61,9 +68,15 @@ Route::prefix('guru')->middleware('auth', 'guru')->group(function () {
         Route::get('/absensi/{kelas}', 'showAbsen');
         Route::post('/absensi', 'storeAbsen');
     });
+
+    Route::controller(RekapController::class)->group(function () {
+        Route::get('/rekap', 'indexGuru')->name('guru.rekap.index');
+        Route::get('/rekap/view', 'viewRekapGuru');
+        Route::get('/rekap/download/{rekap}/{kelas_id}/{jadwal_id}/{format}', 'download')->name('guru.rekap.download');
+    });
+
 });
-// Route::resource
-//        get > index
-//        post > store
-//        put > update
-//        delete > destroy
+
+Route::prefix('siswa')->middleware('auth', 'siswa')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'siswa']);
+});
