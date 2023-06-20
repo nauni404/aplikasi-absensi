@@ -26,7 +26,7 @@ class SiswaController extends Controller
             });
         }
 
-        $siswa = $query->paginate(10);
+        $siswa = $query->paginate(20);
 
         return view('admin.siswa.index', [
             'siswa' => $siswa

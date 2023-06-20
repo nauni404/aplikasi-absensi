@@ -21,7 +21,7 @@ class MapelController extends Controller
             $query->where('nama', 'like', $keyword);
         }
 
-        $mapels = $query->paginate(10);
+        $mapels = $query->paginate(20);
 
         return view('admin.mapel.index', compact('mapels'));
     }

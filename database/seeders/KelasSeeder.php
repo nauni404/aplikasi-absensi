@@ -21,11 +21,53 @@ class KelasSeeder extends Seeder
             'tahun_keluar' => '2024',
         ]);
         Kelas::create([
+            'tingkat_kelas' => 'X',
+            'jurusan' => 'IPS',
+            'nama' => '1',
+            'tahun_masuk' => '2023',
+            'tahun_keluar' => '2024',
+        ]);
+        Kelas::create([
+            'tingkat_kelas' => 'X',
+            'jurusan' => 'AGAMA',
+            'nama' => '1',
+            'tahun_masuk' => '2023',
+            'tahun_keluar' => '2024',
+        ]);
+        Kelas::create([
+            'tingkat_kelas' => 'XI',
+            'jurusan' => 'IPA',
+            'nama' => '1',
+            'tahun_masuk' => '2022',
+            'tahun_keluar' => '2023',
+        ]);
+        Kelas::create([
             'tingkat_kelas' => 'XI',
             'jurusan' => 'IPS',
             'nama' => '1',
             'tahun_masuk' => '2022',
             'tahun_keluar' => '2023',
+        ]);
+        Kelas::create([
+            'tingkat_kelas' => 'XI',
+            'jurusan' => 'AGAMA',
+            'nama' => '1',
+            'tahun_masuk' => '2022',
+            'tahun_keluar' => '2023',
+        ]);
+        Kelas::create([
+            'tingkat_kelas' => 'XII',
+            'jurusan' => 'IPA',
+            'nama' => '1',
+            'tahun_masuk' => '2021',
+            'tahun_keluar' => '2022',
+        ]);
+        Kelas::create([
+            'tingkat_kelas' => 'XII',
+            'jurusan' => 'IPS',
+            'nama' => '1',
+            'tahun_masuk' => '2021',
+            'tahun_keluar' => '2022',
         ]);
         Kelas::create([
             'tingkat_kelas' => 'XII',

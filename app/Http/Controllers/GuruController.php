@@ -24,7 +24,7 @@ class GuruController extends Controller
             });
         }
 
-        $guru = $query->paginate(10);
+        $guru = $query->paginate(20);
 
         return view('admin.guru.index', compact('guru'));
     }
