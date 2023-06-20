@@ -5,7 +5,7 @@
     <section class="section">
         <div class="section-header">
             <div class="section-header-back">
-                <a href="{{ route('absensi.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ route('guru.absensi.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
             <h1>Absensi Kelas
                 {{ $kelas->tingkat_kelas .' ' .$kelas->jurusan .' ' .$kelas->nama .' (' .Carbon\Carbon::now('Asia/Jakarta')->locale('id')->isoFormat('D MMMM Y') .')' }}

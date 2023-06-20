@@ -38,12 +38,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Siswa</h4>
-                        @if (count($siswa) > 0)
-                            <div class="card-header-action">
-                                <a href="/admin/kelas/create" class="btn btn-primary">Tambah Siswa</a>
-                            </div>
-                        @else
-                        @endif
                     </div>
                     @if (count($siswa) > 0)
                         {{-- Search --}}

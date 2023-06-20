@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     {
 
         Siswa::factory(120)->create();
-        Guru::factory(6)->create();
+        Guru::factory(19)->create();
         $this->call(UserSeeder::class);
         $this->call(KelasSeeder::class);
         $this->call(MapelSeeder::class);
-        // $this->call(SiswaSeeder::class);
-        // $this->call(GuruSeeder::class);
+        $this->call(SiswaSeeder::class);
+        $this->call(GuruSeeder::class);
     }
 }
