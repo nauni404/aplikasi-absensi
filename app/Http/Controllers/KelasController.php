@@ -136,7 +136,19 @@ class KelasController extends Controller
     public function tambah($id)
     {
         $kelas_id = $id;
-        $siswa = Siswa::all();
+        $siswa = Siswa::query();
+
+        // Jika ada pencarian NIS / Nama
+        if (request('search')) {
+            $keyword = '%' . request('search') . '%';
+            $siswa->where(function ($q) use ($keyword) {
+                $q->where('nis', 'like', $keyword)
+                    ->orWhere('nama', 'like', $keyword);
+            });
+        }
+
+        $siswa = $siswa->get();
+
         return view('admin.kelas.tambah', [
             'siswa' => $siswa,
             'kelas_id' => $kelas_id

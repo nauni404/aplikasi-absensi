@@ -46,6 +46,23 @@
                         @endif
                     </div>
                     @if (count($siswa) > 0)
+                        {{-- Search --}}
+                        <div class="card-header">
+                            @if (request('search'))
+                                <div class="section-header-back">
+                                    <a href="/admin/kelas/tambah-siswa/{{ $kelas_id }}" class="btn btn-icon"><i
+                                            class="fas fa-arrow-left"></i></a>
+                                </div>
+                            @endif
+                            <form class="card-header-form" action="/admin/kelas/tambah-siswa/{{ $kelas_id }}">
+                                <div class="input-group">
+                                    <input type="text" name="search" class="form-control" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary btn-icon"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table table-striped mb-0">
@@ -86,18 +103,34 @@
                             </div>
                         </div>
                     @else
-                        <div class="card-body">
-                            <div class="empty-state" data-height="400">
-                                <div class="empty-state-icon">
-                                    <i class="fas fa-question"></i>
+                        @if (request('search'))
+                            <div class="card-body">
+                                <div class="empty-state" data-height="400">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                    <h2>Pencarian tidak ditemukan</h2>
+                                    <p class="lead">
+                                        Data guru dengan kata kunci "{{ request('search') }}" tidak ditemukan.
+                                    </p>
+                                    <a href="/admin/kelas/tambah-siswa/{{ $kelas_id }}"
+                                        class="btn btn-primary mt-4">Kembali</a>
                                 </div>
-                                <h2>Tidak ada siswa untuk di masukan kedalam kelas ini</h2>
-                                <p class="lead">
-                                    Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
-                                </p>
-                                <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa</a>
                             </div>
-                        </div>
+                        @else
+                            <div class="card-body">
+                                <div class="empty-state" data-height="400">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-question"></i>
+                                    </div>
+                                    <h2>Tidak ada siswa untuk di masukan kedalam kelas ini</h2>
+                                    <p class="lead">
+                                        Untuk menghilangkan pesan ini, buat setidaknya 1 siswa.
+                                    </p>
+                                    <a href="/admin/siswa/create" class="btn btn-primary mt-4">Tambah Siswa</a>
+                                </div>
+                            </div>
+                        @endif
                     @endif
                 </div>
             </div>
