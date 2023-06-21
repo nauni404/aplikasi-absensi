@@ -26,7 +26,7 @@ class UserController extends Controller
             });
         }
 
-        $user = $query->paginate(10);
+        $user = $query->paginate(20);
 
         return view('admin.user.index', [
             'users' => $user

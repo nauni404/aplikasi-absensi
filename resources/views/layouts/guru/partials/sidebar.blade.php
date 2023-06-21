@@ -25,7 +25,7 @@
                 </a>
             </li>
             {{-- Rekap --}}
-            <li class="">
+            <li class="{{ Request::is('guru/rekap*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('guru.rekap.index') }}">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Rekap</span>

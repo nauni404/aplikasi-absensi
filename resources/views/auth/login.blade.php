@@ -7,13 +7,19 @@
         </div>
 
         <div class="card-body">
+            @if ($errors->has('loginError'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $errors->first('loginError') }}
+                </div>
+            @endif
+
             <form method="POST" action="/login">
                 @csrf
                 <div class="form-group">
-                    <label for="email">Username</label>
-                    <input id="username" type="username" class="form-control @error('username') is-invalid @enderror"
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
                         name="username" autofocus required value="{{ old('username') }}">
-                    @error('email')
+                    @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -38,7 +44,4 @@
             </form>
         </div>
     </div>
-    {{-- <div class="mt-5 text-muted text-center">
-        Don't have an account? <a href="register">Create now</a>
-    </div> --}}
 @endsection

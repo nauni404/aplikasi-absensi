@@ -51,12 +51,6 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
         Route::delete('/kelas/hapus-siswa/{id}', [KelasController::class, 'hapusKelasId']);
     Route::resource('/jadwal', JadwalController::class)->names(['index'=>'jadwal.index']);
 
-    Route::controller(AbsensiController::class)->group(function () {
-        Route::get('/absensi', 'index')->name('absensi.index');
-        Route::get('/absensi/{id}', 'show');
-        Route::post('/absensi', 'store');
-    });
-
     Route::controller(RekapController::class)->group(function () {
         Route::get('/rekap', 'index')->name('rekap.index');
         Route::get('/rekap/view', 'viewRekap');

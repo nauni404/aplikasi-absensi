@@ -20,7 +20,7 @@
                         <a href="{{ route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $kelas->id, 'jadwal_id' => $absensi[0]->jadwal->id, 'start_date' => $start_date, 'end_date' => $end_date, 'format' => 'pdf']) }}"
                             class="btn btn-primary">Download PDF</a>
                     </div>
-                    <div class="card-header-action">
+                    <div class="card-header-action mx-3">
                         <a href="{{ route('rekap.download', ['rekap' => $rekap, 'kelas_id' => $kelas->id, 'jadwal_id' => $absensi[0]->jadwal->id, 'start_date' => $start_date, 'end_date' => $end_date, 'format' => 'excel']) }}"
                             class="btn btn-success">Download Excel</a>
                     </div>

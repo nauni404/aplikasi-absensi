@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'guru', 'siswa']);
-            $table->rememberToken();
             $table->foreignId('siswa_id')->nullable()->constrained(
                 table: 'siswa', indexName: 'users_siswa_id'
                 )->onUpdate('cascade')->onDelete('cascade');

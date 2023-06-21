@@ -5,7 +5,7 @@
     <section class="section">
         <div class="section-header">
             <div class="section-header-back">
-                <a href="{{ route('absensi.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{ route('guru.absensi.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
             <h1>Absensi Kelas
                 {{ $kelas->tingkat_kelas .' ' .$kelas->jurusan .' ' .$kelas->nama .' (' .Carbon\Carbon::now('Asia/Jakarta')->locale('id')->isoFormat('D MMMM Y') .')' }}
@@ -17,7 +17,7 @@
             </div>
         </div>
         @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-success alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -27,7 +27,7 @@
             </div>
         @endif
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-danger alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -37,7 +37,7 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Data Siswa</h4>
