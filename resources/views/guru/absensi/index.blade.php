@@ -10,7 +10,7 @@
             </div>
         </div>
         @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-success alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -20,7 +20,7 @@
             </div>
         @endif
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible show fade col-lg-7 col-md-12 col-12 col-sm-12">
+            <div class="alert alert-danger alert-dismissible show fade col-lg-12 col-md-12 col-12">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>&times;</span>
@@ -32,7 +32,7 @@
         {{-- Jadwal --}}
         <div class="row">
             {{-- Jadwal Hari ini --}}
-            <div class="col-lg-6 col-md-6 col-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Jadwal Absensi Hari Ini</h4>
@@ -89,58 +89,6 @@
                         </div>
                     @endif
                 </div>
-            </div>
-            {{-- Semua Jadwal --}}
-            <div class="col-lg-6 col-md-6 col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Semua Jadwal Mengajar</h4>
-                    </div>
-                    @if (count($jadwalGuru) > 0)
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-striped mb-0" style="padding: 0 0px;">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">No</th>
-                                            <th class="text-center">Jadwal</th>
-                                            <th class="text-center">Kelas</th>
-                                            <th class="text-center">Mata Pelajaran</th>
-                                            <th class="text-center">Jumlah Siswa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($jadwalGuru as $jadwal)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">
-                                                    {{ $jadwal->hari . ' | ' . substr($jadwal->jam_mulai, 0, 5) . ' - ' . substr($jadwal->jam_selesai, 0, 5) }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ $jadwal->kelas->tingkat_kelas . ' ' . $jadwal->kelas->jurusan . ' ' . $jadwal->kelas->nama }}
-                                                </td>
-                                                <td class="text-center">{{ $jadwal->mapel->nama }}</td>
-                                                <td class="text-center">
-                                                    {{ $jadwal->kelas->siswa->count() }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @else
-                        <div class="card-body">
-                            <div class="empty-state" data-height="400">
-                                <div class="empty-state-icon">
-                                    <i class="fas fa-question"></i>
-                                </div>
-                                <h2>Tidak ada jadwal mengajar hari ini</h2>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                {{-- {{ $jadwals->links() }} --}}
             </div>
         </div>
     </section>

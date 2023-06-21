@@ -31,7 +31,7 @@
 
                         @yield('content')
                         <div class="simple-footer">
-                            Copyright &copy; Naufal {{ date('Y') }}
+                            Copyright &copy; MAS YPI Al-Yahya {{ date('Y') }}
                         </div>
                     </div>
                 </div>

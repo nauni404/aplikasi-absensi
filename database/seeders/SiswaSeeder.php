@@ -14,7 +14,7 @@ class SiswaSeeder extends Seeder
     public function run(): void
     {
         Siswa::create([
-            'nis' => '2103010077',
+            'nis' => '2003010077',
             'nama' => 'Alfan',
             'jk' => 'L'
         ]);

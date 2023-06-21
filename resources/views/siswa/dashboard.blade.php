@@ -28,9 +28,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         @foreach ($jadwalHariIni as $jadwal)
                                             @php
-                                                $absensi = $absensi->firstWhere('jadwal_id', $jadwal->id);
+                                                $absensi = $jadwal->absensi()->firstWhere('jadwal_id', $jadwal->id);
                                             @endphp
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
