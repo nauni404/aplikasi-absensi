@@ -29,7 +29,11 @@ class AuthController extends Controller
                 return redirect()->intended('/');
             }
 
-        return back()->with('loginError', 'Login failed!');
+        return back()
+            ->withInput($request->only('username'))
+            ->withErrors([
+                'loginError' => 'Username atau Password salah.',
+            ]);
     }
 
     public function logout(Request $request)
