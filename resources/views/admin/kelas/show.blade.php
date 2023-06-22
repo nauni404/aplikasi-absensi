@@ -7,7 +7,7 @@
             <div class="section-header-back">
                 <a href="{{ route('kelas.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
-            <h1>Data Kelas {{ $kelas->tingkat_kelas }} {{ $kelas->jurusan }} {{ $kelas->nama }}</h1>
+            <h1>Data Siswa Kelas {{ $kelas->tingkat_kelas }} {{ $kelas->jurusan }} {{ $kelas->nama }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
                 <div class="breadcrumb-item active"><a href="{{ route('kelas.index') }}">Kelas</a></div>

@@ -71,8 +71,7 @@
                                                             <label class="selectgroup-item">
                                                                 <input type="radio" name="status[{{ $siswa->id }}]"
                                                                     value="A" class="selectgroup-input"
-                                                                    {{ optional($siswa->absensi->where('tanggal', now('Asia/Jakarta')->format('Y-m-d'))->where('guru_id', auth()->user()->guru_id)->first())->status === 'A'? 'checked': '' }}
-                                                                    {{ !$siswa->absensi->where('tanggal', now('Asia/Jakarta')->format('Y-m-d'))->where('guru_id', auth()->user()->guru_id)->first()? 'checked': '' }}>
+                                                                    {{ optional($siswa->absensi->where('tanggal', now('Asia/Jakarta')->format('Y-m-d'))->where('guru_id', auth()->user()->guru_id)->first())->status === 'A'? 'checked': '' }}>
                                                                 <span class="selectgroup-button">A</span>
                                                             </label>
                                                             <label class="selectgroup-item">
@@ -90,7 +89,8 @@
                                                             <label class="selectgroup-item">
                                                                 <input type="radio" name="status[{{ $siswa->id }}]"
                                                                     value="H" class="selectgroup-input"
-                                                                    {{ optional($siswa->absensi->where('tanggal', now('Asia/Jakarta')->format('Y-m-d'))->where('guru_id', auth()->user()->guru_id)->first())->status === 'H'? 'checked': '' }}>
+                                                                    {{ optional($siswa->absensi->where('tanggal', now('Asia/Jakarta')->format('Y-m-d'))->where('guru_id', auth()->user()->guru_id)->first())->status === 'H'? 'checked': '' }}
+                                                                    {{ !$siswa->absensi->where('tanggal', now('Asia/Jakarta')->format('Y-m-d'))->where('guru_id', auth()->user()->guru_id)->first()? 'checked': '' }}>
                                                                 <span class="selectgroup-button">H</span>
                                                             </label>
                                                         </div>
