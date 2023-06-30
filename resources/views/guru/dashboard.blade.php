@@ -45,7 +45,7 @@
         {{-- Jadwal --}}
         <div class="row">
             {{-- Jadwal Hari ini --}}
-            <div class="col-lg-6 col-md-6 col-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Jadwal Mengajar Hari Ini</h4>
@@ -105,7 +105,7 @@
                 </div>
             </div>
             {{-- Semua Jadwal --}}
-            <div class="col-lg-6 col-md-6 col-12">
+            <div class="col-lg-12 col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Semua Jadwal Mengajar</h4>
