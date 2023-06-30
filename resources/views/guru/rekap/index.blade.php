@@ -67,9 +67,9 @@
                                     <div class="col-sm-12 col-md-7">
                                         <select name="rekap" id="rekap" class="form-control" required>
                                             <option selected disabled>-- Pilih Waktu Rekap --</option>
-                                            <option value="hari">Per Hari</option>
-                                            <option value="minggu">Per Minggu</option>
-                                            <option value="bulan">Per Bulan</option>
+                                            <option value="hari">Hari ini</option>
+                                            <option value="minggu">Minggu ini</option>
+                                            <option value="bulan">Bulan ini</option>
                                             <option value="custom">Custom Tanggal</option>
                                         </select>
                                     </div>

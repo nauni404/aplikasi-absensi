@@ -88,12 +88,19 @@
                                     </div>
                                 </div>
                                 {{-- Hari --}}
-                                <div id="hari" class="form-group row mb-4">
+                                <div class="form-group row mb-4">
                                     <label for="hari"
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hari</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input name="hari" class="form-control @error('hari') is-invalid @enderror"
-                                            type="text" value="{{ $jadwal->hari }}">
+                                        <select name="hari" id="hari"
+                                            class="form-control selectric @error('hari') is-invalid @enderror">
+                                            <option>{{ $jadwal->hari }}</option>
+                                            @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
+                                                @unless ($hari == $jadwal->hari)
+                                                    <option>{{ $hari }}</option>
+                                                @endunless
+                                            @endforeach
+                                        </select>
                                         @error('hari')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

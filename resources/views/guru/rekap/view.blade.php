@@ -33,8 +33,6 @@
                             <h6>Kelas: {{ $kelas->tingkat_kelas . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}</h6>
                             <h6>Guru: {{ $absensi[0]->jadwal->guru->nama }}</h6>
                             <h6>Mata Pelajaran: {{ $absensi[0]->jadwal->mapel->nama }}</h6>
-                            <h6>Kelas Id: {{ $kelas->id }}</h6>
-                            <h6>Jadwal Id: {{ $absensi[0]->jadwal->id }}</h6>
                             <h6>Rekapitulasi: {{ ucfirst($rekap) }}</h6>
                             <hr>
                             @if ($rekap == 'hari')
