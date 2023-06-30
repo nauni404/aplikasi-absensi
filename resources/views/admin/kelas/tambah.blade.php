@@ -6,11 +6,13 @@
             <div class="section-header-back">
                 <a href="/admin/kelas/{{ $kelas_id }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
-            <h1>Tambah Siswa</h1>
+            <h1>Tambah Siswa Kelas
+                {{ $kelas->tingkat_kelas . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>
                 <div class="breadcrumb-item active"><a href="{{ route('kelas.index') }}">Kelas</a></div>
-                <div class="breadcrumb-item">Tambah Siswa</div>
+                <div class="breadcrumb-item">Tambah Siswa Kelas
+                    {{ $kelas->tingkat_kelas . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}</div>
             </div>
         </div>
         @if (session()->has('success'))

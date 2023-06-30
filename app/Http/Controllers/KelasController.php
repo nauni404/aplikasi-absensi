@@ -135,6 +135,7 @@ class KelasController extends Controller
 
     public function tambah($id)
     {
+        $kelas = Kelas::find($id);
         $kelas_id = $id;
         $siswa = Siswa::query();
 
@@ -151,7 +152,8 @@ class KelasController extends Controller
 
         return view('admin.kelas.tambah', [
             'siswa' => $siswa,
-            'kelas_id' => $kelas_id
+            'kelas_id' => $kelas_id,
+            'kelas' => $kelas
         ]);
     }
 
